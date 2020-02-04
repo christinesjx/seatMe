@@ -1,0 +1,18 @@
+# MacOS
+.DS_Store
+
+# IntelliJ
+*.iml
+**/.idea/
+**/out/
+
+# BlueJ files
+*.cxt
+
+# Package files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
