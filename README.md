@@ -13,6 +13,8 @@
 
 This project will be developed based on the following apis: 
 
+In order to 
+
 ### Enterprise side: 
 
 * register a new restaurant: POST ../resturants/registration 
@@ -109,7 +111,7 @@ This project will be developed based on the following apis:
   JWT token
   +
   {
-    "date": 2/14,
+    "date": 1581638400000,  //Math.abs(2/14/2020)
   }
   ```
 
@@ -120,17 +122,18 @@ This project will be developed based on the following apis:
     "firstname": "john",
     "lastname": "snow",
     "phone": 123456,
-    "party_size": 5
-    "date": 2/14
+    "party_size": 5,
+    "date": 1581638400000,	//Math.abs(2/14/2020)
     "time": "7-8"
   },
     {"reservation_id": 2,
     "firstname": "johnny",
     "lastname": "snowy",
     "phone": 252442,
-    "party_size": 3
-    "date": 2/14
+    "party_size": 3,
+    "date": 1581638400000,	//Math.abs(2/14/2020)
     "time": "8-9"
+    }
   ]
   ```
 
@@ -147,7 +150,7 @@ This project will be developed based on the following apis:
   [
     {
       "restaurant_id": 1,
-  		"name": "BU resturant"
+  		"name": "BU resturant",
       "address": "1 commonwealth ave",
       "zipcode": 02215,
   		"phone": 12341256,
@@ -155,7 +158,7 @@ This project will be developed based on the following apis:
     },
       {
       "restaurant_id": 2,
-  		"name": "ABC cafe"
+  		"name": "ABC cafe",
       "address": "2 commonwealth ave",
       "zipcode": 02215,
   		"phone": 23452167,
@@ -178,7 +181,7 @@ This project will be developed based on the following apis:
   from frontend: 
   {
     "resturant_id": 1,
-    "date": 2/14,
+    "date": 1581638400000,	//Math.abs(2/14/2020)
     "party_size": 5
   }
   ```
@@ -195,9 +198,9 @@ This project will be developed based on the following apis:
     "firstname": "john",
     "lastname": "snow",
     "phone": 123456,
-    "party_size": 5
-    "resturant_id": 1
-    "date": 2/14
+    "party_size": 3,
+    "resturant_id": 1,
+    "date": 1581638400000,	//Math.abs(2/14/2020)
     "time": "7-8"
   }
   ```
