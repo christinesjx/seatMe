@@ -13,8 +13,6 @@
 
 This project will be developed based on the following apis: 
 
-In order to 
-
 ### Enterprise side: 
 
 * register a new restaurant: POST ../resturants/registration 
@@ -27,7 +25,8 @@ In order to
   "address": "1 commonwealth ave",
   "zipcode": 02215,
   "phone": 123456,
-  "cuisine_type": "chinese"
+  "cuisine_type": "chinese",
+  "photo": "url"
   }
   ```
 
@@ -137,9 +136,13 @@ In order to
   ]
   ```
 
-* checkout a reservation (customer arrive)
+* get the waitlist queue
 
-  ???
+  ```json
+  from frontend: JWT token
+  ```
+
+  
 
 ### Customer Side:
 
@@ -194,6 +197,7 @@ In order to
 * add a reservation: POST ../reservation
 
   ```json
+  from frontend:
   {
     "firstname": "john",
     "lastname": "snow",
@@ -208,6 +212,7 @@ In order to
 * cancel a reservation:  DELETE ../reservation
 
   ```json
+  from frontend:
   {
     "firstname": "john",
     "lastname": "snow",
@@ -219,6 +224,7 @@ In order to
 * get estimated time: GET ../estimated-time
 
   ```json
+  from frontend:
   {
     "resturant_id": 1,
     "party_size": 5,
@@ -229,6 +235,7 @@ In order to
 * add to waitlist: POST ../waitlist
 
   ```json
+  from frontend:
   {
     "firstname": "john",
     "lastname": "snow",
@@ -240,3 +247,4 @@ In order to
   ```
 
   
+

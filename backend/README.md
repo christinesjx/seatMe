@@ -4,7 +4,7 @@
 
 use homebrew to install: postgresql
 
-useful tools: datagrip, postman
+useful tools: datagrip, postman (testing)
 
 
 ### data model 
@@ -26,6 +26,9 @@ Restaurant:
 | 2    |    XYZ cafe     | 701 commonwealth ave | 123456 |      Chinese |
 
 
+
+## Reservation:
+
 Table:
 
 | Id   | min_table_size | max_table_size | restaurant_id | current_availability |
@@ -45,5 +48,11 @@ Reservation:
 | 2    |   yifan   |     chen | 123456 |          2 |             1 |        4 | 2/16 |  7-8 |
 | 3    |  jiaxin   |      sun | 123456 |          2 |             2 |        2 | 3/10 |  8-9 |
 
+
+
+## Waitlist Queue
+
 ## CRUD:
+
+
 
