@@ -1,0 +1,42 @@
+# NOTICE: DO NOT USE THIS APPLICATION CONFIGURATION IN PRODUCTION ENVIRONMENT
+spring:
+  application:
+    name: seatMe-server
+
+  # RSA public key endpoint
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9098/auth/.well-known/jwks.json
+
+  datasource:
+    name: seatme
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/seatme
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 30000
+  # JPA & Hibernate settings
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    hibernate:
+      ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
+server:
+  port: 8083
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+    org.springframework.http.server: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
