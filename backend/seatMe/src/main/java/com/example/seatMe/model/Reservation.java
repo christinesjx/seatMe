@@ -1,85 +1,53 @@
 package com.example.seatMe.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity(name = "reservation")
 public class Reservation extends BaseEntity {
 
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
-    private int phone;
-    private int partySize;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "party_size")
+    private String partySize;
+
+    @Column(name = "date")
     private Date date;
+
+    @Column(name = "time")
     private TimeSlot time;
 
     @JsonIgnore
+    @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     private Table table;
 
     @JsonIgnore
+    @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     private Restaurant restaurant;
 
-    public Reservation(String firstName, String lastName, int phone, int partySize, Date date, TimeSlot time) {
+    public Reservation(String firstName, String lastName, String phone, String partySize, Date date, TimeSlot time) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.partySize = partySize;
         this.date = date;
-        this.time = time;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
-    }
-
-    public int getPartySize() {
-        return partySize;
-    }
-
-    public void setPartySize(int partySize) {
-        this.partySize = partySize;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public TimeSlot getTime() {
-        return time;
-    }
-
-    public void setTime(TimeSlot time) {
         this.time = time;
     }
 }

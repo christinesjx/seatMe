@@ -1,108 +1,73 @@
 package com.example.seatMe.model;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "restaurant")
 public class Restaurant extends BaseEntity {
 
-    // Primary identifier of user
-    @NotEmpty(message = "Email is required")
-    private String email;
-
-    // Salted hashed password using BCrypt
-    @NotEmpty(message = "Password is required")
-    private String password;
-
     @NotEmpty(message = "Restaurant name is required")
+    @Column(name = "name")
     private String name;
 
     @NotEmpty(message = "Restaurant address is required")
+    @Column(name = "address")
     private String address;
 
-    private int zipCode;
+    @Column(name = "zip_code")
+    private String zipCode;
 
-    private int phone;
+    @Column(name = "phone")
+    private String phone;
 
+    @Column(name = "cuisine_type")
     private CuisineType cuisineType;
-    private String photoReference;
+
+    @Column(name = "photo_reference_url")
+    private String photoReferenceUrl;
+
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Table> tables = new ArrayList<>();
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations = new ArrayList<>();
 
 
-    public Restaurant(@NotEmpty(message = "Email is required") String email, @NotEmpty(message = "Password is required") String password, @NotEmpty(message = "Restaurant name is required") String name, @NotEmpty(message = "Restaurant address is required") String address, @NotEmpty(message = "ZipCode is required") int zipCode, @NotEmpty(message = "Phone number is required") int phone, CuisineType cuisineType, String photoReference) {
-        this.email = email;
-        this.password = password;
+    public void addTable(Table table) {
+        tables.add(table);
+        table.setRestaurant(this);
+    }
+
+    public void removeTable(Table table) {
+        tables.remove(table);
+        table.setRestaurant(null);
+    }
+
+    public Restaurant(String name, String address, String zipCode, String phone, CuisineType cuisineType, String photoReference) {
         this.name = name;
         this.address = address;
         this.zipCode = zipCode;
         this.phone = phone;
         this.cuisineType = cuisineType;
-        this.photoReference = photoReference;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(int zipCode) {
-        this.zipCode = zipCode;
-    }
-
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
-    }
-
-    public CuisineType getCuisineType() {
-        return cuisineType;
-    }
-
-    public void setCuisineType(CuisineType cuisineType) {
-        this.cuisineType = cuisineType;
-    }
-
-    public String getPhotoReference() {
-        return photoReference;
-    }
-
-    public void setPhotoReference(String photoReference) {
-        this.photoReference = photoReference;
+        this.photoReferenceUrl = photoReference;
     }
 }
+
 
 
 
