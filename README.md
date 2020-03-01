@@ -153,28 +153,28 @@ This project will be developed based on the following apis:
   from backend:
   [
     {
-      "restaurant_id": "1",
+      "restaurantId": "1",
   		"name": "BU resturant",
       "address": "1 commonwealth ave",
       "zipcode": "02215",
   		"phone": "12341256",
-  		"cuisine_type": "chinese"
+  		"cuisineType": "chinese"
     },
       {
-      "restaurant_id": "2",
+      "restaurantId": "2",
   		"name": "ABC cafe",
       "address": "2 commonwealth ave",
       "zipcode": "02215",
   		"phone": "23452167",
-  		"cuisine_type": "american"
+  		"cuisineType": "american"
     },
       {
-      "restaurant_id": "3",
+      "restaurantId": "3",
   		"name": "XYZ pizza",
       "address": "3 commonwealth ave",
       "zipcode": "02215",
   		"phone": "1324231",
-  		"cuisine_type": "indian"
+  		"cuisineType": "indian"
     },
   ]
   ```
@@ -184,9 +184,9 @@ This project will be developed based on the following apis:
   ```json
   from frontend: 
   {
-    "resturant_id": "1",
+    "resturantId": "1",
     "date": "mm-dd-yyyy",
-    "party_size": "3"
+    "partySize": "3"
   }
   ```
 
@@ -203,8 +203,8 @@ This project will be developed based on the following apis:
     "firstname": "john",
     "lastname": "snow",
     "phone": "123456",
-    "party_size": "3",
-    "resturant_id": "1",
+    "partySize": "3",
+    "resturantId": "1",
     "date": "mm-dd-yyyy",
     "time": "1:15"
   }
@@ -215,8 +215,8 @@ This project will be developed based on the following apis:
   ```json
   from frontend:
   {
-    "resturant_id": "1",
-    "party_size": "5",
+    "resturantId": "1",
+    "partySize": "5",
     "timestamp": "current time stamp"
   }
   ```
@@ -229,8 +229,8 @@ This project will be developed based on the following apis:
     "firstname": "john",
     "lastname": "snow",
     "phone": "123456",
-    "party_size": "5",
-    "resturant_id": "1",
+    "partySize": "5",
+    "resturantId": "1",
     "timestamp": "current time stamp"
   }
   ```
