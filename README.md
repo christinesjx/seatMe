@@ -143,108 +143,98 @@ This project will be developed based on the following apis:
   ```
 
   
+* 
 
 ### Customer Side:
 
-* get a list of restaurants:  GET ../resturants/all
+* get a list of restaurants:  GET ..reservation/restaurant/all
 
   ```json
   from backend:
   [
     {
-      "restaurant_id": 1,
+      "restaurant_id": "1",
   		"name": "BU resturant",
       "address": "1 commonwealth ave",
-      "zipcode": 02215,
-  		"phone": 12341256,
+      "zipcode": "02215",
+  		"phone": "12341256",
   		"cuisine_type": "chinese"
     },
       {
-      "restaurant_id": 2,
+      "restaurant_id": "2",
   		"name": "ABC cafe",
       "address": "2 commonwealth ave",
-      "zipcode": 02215,
-  		"phone": 23452167,
+      "zipcode": "02215",
+  		"phone": "23452167",
   		"cuisine_type": "american"
     },
       {
-      "restaurant_id": 3,
+      "restaurant_id": "3",
   		"name": "XYZ pizza",
       "address": "3 commonwealth ave",
-      "zipcode": 02215,
-  		"phone": 1324231,
+      "zipcode": "02215",
+  		"phone": "1324231",
   		"cuisine_type": "indian"
     },
   ]
   ```
 
-* get a list available timeslot of a restaurants: GET ../resturants/timeslot
+* get a list available timeslot of a restaurants: GET ../reservation/restaurant/timeslot
 
   ```json
   from frontend: 
   {
-    "resturant_id": 1,
-    "date": 1581638400000,	//Math.abs(2/14/2020)
-    "party_size": 5
+    "resturant_id": "1",
+    "date": "mm-dd-yyyy",
+    "party_size": "3"
   }
   ```
 
   ```json
   from backend:
-  ["2-3","6-7", "7-8"]
+  ["1:15","1:30", "1:45"]
   ```
 
-* add a reservation: POST ../reservation
+* add a reservation: POST ../reservation/add
 
   ```json
   from frontend:
   {
     "firstname": "john",
     "lastname": "snow",
-    "phone": 123456,
-    "party_size": 3,
-    "resturant_id": 1,
-    "date": 1581638400000,	//Math.abs(2/14/2020)
-    "time": "7-8"
+    "phone": "123456",
+    "party_size": "3",
+    "resturant_id": "1",
+    "date": "mm-dd-yyyy",
+    "time": "1:15"
   }
   ```
 
-* cancel a reservation:  DELETE ../reservation
+* get estimated time: GET ../reservation/waitlist
+
+  ```json
+  from frontend:
+  {
+    "resturant_id": "1",
+    "party_size": "5",
+    "timestamp": "current time stamp"
+  }
+  ```
+
+* add to waitlist: POST ../reservation/waitlist/add
 
   ```json
   from frontend:
   {
     "firstname": "john",
     "lastname": "snow",
-    "phone": 123456,
-    "resturant_id": 1
+    "phone": "123456",
+    "party_size": "5",
+    "resturant_id": "1",
+    "timestamp": "current time stamp"
   }
   ```
 
-* get estimated time: GET ../estimated-time
-
-  ```json
-  from frontend:
-  {
-    "resturant_id": 1,
-    "party_size": 5,
-    "timestamp": {{current_time}}
-  }
-  ```
-
-* add to waitlist: POST ../waitlist
-
-  ```json
-  from frontend:
-  {
-    "firstname": "john",
-    "lastname": "snow",
-    "phone": 123456,
-    "party_size": 5
-    "resturant_id": 1,
-    "timestamp": {{current_time}}
-  }
-  ```
-
+  
   
 
