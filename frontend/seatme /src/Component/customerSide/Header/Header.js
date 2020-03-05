@@ -1,10 +1,11 @@
 import React from 'react'
-import ClientBusinessDropdown from './ClientBusinessDropdown'
+import ClientBusinessDropdown from '../ClientBusinessDropdown/ClientBusinessDropdown'
+import './Header.css'
 
 const Header = () => {
     return(
         <div>
-            <h2>SeatMe</h2>
+            <h2 className="header">SeatMe</h2>
             <ClientBusinessDropdown />
         </div>
     )

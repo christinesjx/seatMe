@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../App.css';
+import './ClientBusinessDropdown.css'
 
 class ClientBusinessDropdown extends Component {
     constructor() {
@@ -45,6 +45,7 @@ class ClientBusinessDropdown extends Component {
                     >
                         <div className="dropdown-item">
                             <button>Client</button>
+                            <br/>
                             <button>Business</button> 
                         </div>  
                     </div>
