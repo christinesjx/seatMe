@@ -20,7 +20,15 @@ This project will be developed based on the following apis:
   from frontend:
   {
   "email": "jxsun95@bu.edu",
-  "password": "123456",
+  "password": "123456"
+  }
+  ```
+
+* register a new restaurant: POST ../resturants/info 
+  ```json
+  from frontend:
+  {
+  "email":"jxsun95@bu.edu",
   "name": "BU resturant",
   "address": "1 commonwealth ave",
   "zipcode": 02215,
@@ -30,7 +38,7 @@ This project will be developed based on the following apis:
   }
   ```
 
-* restaurant login: POST ../resturants/login 
+* restaurant login: POST ../resturants/basicauth 
 
   ```json
   from frontend:
@@ -44,18 +52,12 @@ This project will be developed based on the following apis:
 
     ```json
     from backend:
-    JWT token example:
-    {
-        "user_id": 1,
-        "scope": [
-          "server"
-        ],
-        "exp": 1458126622,
-        "authorities": [
-            "ROLE_USER"
-        ],
-        "jti": "e0ad1ef3-a8a5-4eef-998d-00b26bc2c53f",
-    }
+    JWT token from the seatMe backend: 
+    eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcmVzZW50YXRpb25AYnUuZWR1IiwiZXhwIjoxNTg1ODYxNTA1LCJpYXQiOjE1ODUyNTY3MDV9.OTZPiuSXSImhNqDa05WNn7ljARPRetkEavKycNkbxdHmjw0GWXt_pviqK9w6VEawiduULGV4K_nOuwvwiXkRxA
+    
+    go to website: jwt.io
+    you can see the content of this token. for now, the token has user email
+
     ```
 
 * delete a restaurant: DELETE ../resturants
