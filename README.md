@@ -24,15 +24,15 @@ This project will be developed based on the following apis:
   }
   ```
 
-* register a new restaurant: POST ../resturants/info 
+* update restaurant info: POST ../resturants/info 
   ```json
   from frontend:
   {
   "email":"jxsun95@bu.edu",
   "name": "BU resturant",
   "address": "1 commonwealth ave",
-  "zipcode": 02215,
-  "phone": 123456,
+  "zipcode": "02134",
+  "phone": "123456",
   "cuisine_type": "chinese",
   "photo": "url"
   }
@@ -73,8 +73,8 @@ This project will be developed based on the following apis:
   JWT token 
   +
   {
-    "min_table_size": 2,
-    "max_table_size": 4
+    "min_table_size": "2",
+    "max_table_size": "4"
   }
   ```
 
@@ -85,7 +85,7 @@ This project will be developed based on the following apis:
   JWT token 
   +
   {
-    "table_id": 2
+    "table_id": "2"
   }
   ```
 
@@ -101,7 +101,7 @@ This project will be developed based on the following apis:
   JWT token 
   +
   {
-  "table_id": 2
+  "table_id": "2"
   }
   ```
 
@@ -145,7 +145,6 @@ This project will be developed based on the following apis:
   ```
 
   
-* 
 
 ### Customer Side:
 
