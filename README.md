@@ -122,18 +122,18 @@ This project will be developed based on the following apis:
     {"reservation_id": 1,
     "firstname": "john",
     "lastname": "snow",
-    "phone": 123456,
-    "party_size": 5,
-    "date": 1581638400000,	//Math.abs(2/14/2020)
-    "time": "7-8"
+    "phone": "123456",
+    "party_size": "5",
+    "date": "mm-dd-yyyy",	
+    "time": "7:15"
   },
     {"reservation_id": 2,
     "firstname": "johnny",
     "lastname": "snowy",
-    "phone": 252442,
-    "party_size": 3,
-    "date": 1581638400000,	//Math.abs(2/14/2020)
-    "time": "8-9"
+    "phone": "123456",
+    "party_size": "3",
+    "date": "mm-dd-yyyy",	
+    "time": "8:15"
     }
   ]
   ```
