@@ -112,7 +112,7 @@ This project will be developed based on the following apis:
   JWT token
   +
   {
-    "date": 1581638400000,  //Math.abs(2/14/2020)
+    "date": "mm-dd-yyyy"
   }
   ```
 
