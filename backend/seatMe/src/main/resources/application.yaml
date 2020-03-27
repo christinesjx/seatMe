@@ -33,10 +33,19 @@ spring:
       max-file-size: 10MB
 
 server:
-  port: 8083
+  port: 8080
 logging:
   level:
     org.springframework.cloud.gateway: INFO
     org.springframework.http.server: DEBUG
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
+
+system:
+  # 后端免认证接口 url
+  anonUrl: /login
+  # token有效期，单位秒
+  jwtTimeOut: 3600
+
+  aop:
+    proxy-target-class: true

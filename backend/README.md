@@ -1,5 +1,11 @@
 # SeatMe Backend
 
+## Git Branching
+
+![alt text](backend_branching.png "Title")
+
+"backend" branch is branch out from "develop". Each backend developer has their own branch that branch out from the "backend" branch. After clearlly review, 
+
 ### Tools
 
 use homebrew to install: postgresql

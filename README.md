@@ -20,17 +20,25 @@ This project will be developed based on the following apis:
   from frontend:
   {
   "email": "jxsun95@bu.edu",
-  "password": "123456",
+  "password": "123456"
+  }
+  ```
+
+* update restaurant info: POST ../resturants/info 
+  ```json
+  from frontend:
+  {
+  "email":"jxsun95@bu.edu",
   "name": "BU resturant",
   "address": "1 commonwealth ave",
-  "zipcode": 02215,
-  "phone": 123456,
+  "zipcode": "02134",
+  "phone": "123456",
   "cuisine_type": "chinese",
   "photo": "url"
   }
   ```
 
-* restaurant login: POST ../resturants/login 
+* restaurant login: POST ../resturants/basicauth 
 
   ```json
   from frontend:
@@ -44,18 +52,12 @@ This project will be developed based on the following apis:
 
     ```json
     from backend:
-    JWT token example:
-    {
-        "user_id": 1,
-        "scope": [
-          "server"
-        ],
-        "exp": 1458126622,
-        "authorities": [
-            "ROLE_USER"
-        ],
-        "jti": "e0ad1ef3-a8a5-4eef-998d-00b26bc2c53f",
-    }
+    JWT token from the seatMe backend: 
+    eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcmVzZW50YXRpb25AYnUuZWR1IiwiZXhwIjoxNTg1ODYxNTA1LCJpYXQiOjE1ODUyNTY3MDV9.OTZPiuSXSImhNqDa05WNn7ljARPRetkEavKycNkbxdHmjw0GWXt_pviqK9w6VEawiduULGV4K_nOuwvwiXkRxA
+    
+    go to website: jwt.io
+    you can see the content of this token. for now, the token has user email
+
     ```
 
 * delete a restaurant: DELETE ../resturants
@@ -71,8 +73,8 @@ This project will be developed based on the following apis:
   JWT token 
   +
   {
-    "min_table_size": 2,
-    "max_table_size": 4
+    "min_table_size": "2",
+    "max_table_size": "4"
   }
   ```
 
@@ -83,7 +85,7 @@ This project will be developed based on the following apis:
   JWT token 
   +
   {
-    "table_id": 2
+    "table_id": "2"
   }
   ```
 
@@ -99,7 +101,7 @@ This project will be developed based on the following apis:
   JWT token 
   +
   {
-  "table_id": 2
+  "table_id": "2"
   }
   ```
 
@@ -110,7 +112,7 @@ This project will be developed based on the following apis:
   JWT token
   +
   {
-    "date": 1581638400000,  //Math.abs(2/14/2020)
+    "date": "mm-dd-yyyy"
   }
   ```
 
@@ -120,18 +122,18 @@ This project will be developed based on the following apis:
     {"reservation_id": 1,
     "firstname": "john",
     "lastname": "snow",
-    "phone": 123456,
-    "party_size": 5,
-    "date": 1581638400000,	//Math.abs(2/14/2020)
-    "time": "7-8"
+    "phone": "123456",
+    "party_size": "5",
+    "date": "mm-dd-yyyy",	
+    "time": "7:15"
   },
     {"reservation_id": 2,
     "firstname": "johnny",
     "lastname": "snowy",
-    "phone": 252442,
-    "party_size": 3,
-    "date": 1581638400000,	//Math.abs(2/14/2020)
-    "time": "8-9"
+    "phone": "123456",
+    "party_size": "3",
+    "date": "mm-dd-yyyy",	
+    "time": "8:15"
     }
   ]
   ```
@@ -146,105 +148,94 @@ This project will be developed based on the following apis:
 
 ### Customer Side:
 
-* get a list of restaurants:  GET ../resturants/all
+* get a list of restaurants:  GET ..reservation/restaurant/all
 
   ```json
   from backend:
   [
     {
-      "restaurant_id": 1,
+      "restaurantId": "1",
   		"name": "BU resturant",
       "address": "1 commonwealth ave",
-      "zipcode": 02215,
-  		"phone": 12341256,
-  		"cuisine_type": "chinese"
+      "zipcode": "02215",
+  		"phone": "12341256",
+  		"cuisineType": "chinese"
     },
       {
-      "restaurant_id": 2,
+      "restaurantId": "2",
   		"name": "ABC cafe",
       "address": "2 commonwealth ave",
-      "zipcode": 02215,
-  		"phone": 23452167,
-  		"cuisine_type": "american"
+      "zipcode": "02215",
+  		"phone": "23452167",
+  		"cuisineType": "american"
     },
       {
-      "restaurant_id": 3,
+      "restaurantId": "3",
   		"name": "XYZ pizza",
       "address": "3 commonwealth ave",
-      "zipcode": 02215,
-  		"phone": 1324231,
-  		"cuisine_type": "indian"
+      "zipcode": "02215",
+  		"phone": "1324231",
+  		"cuisineType": "indian"
     },
   ]
   ```
 
-* get a list available timeslot of a restaurants: GET ../resturants/timeslot
+* get a list available timeslot of a restaurants: GET ../reservation/restaurant/timeslot
 
   ```json
   from frontend: 
   {
-    "resturant_id": 1,
-    "date": 1581638400000,	//Math.abs(2/14/2020)
-    "party_size": 5
+    "resturantId": "1",
+    "date": "mm-dd-yyyy",
+    "partySize": "3"
   }
   ```
 
   ```json
   from backend:
-  ["2-3","6-7", "7-8"]
+  ["1:15","1:30", "1:45"]
   ```
 
-* add a reservation: POST ../reservation
+* add a reservation: POST ../reservation/add
 
   ```json
   from frontend:
   {
     "firstname": "john",
     "lastname": "snow",
-    "phone": 123456,
-    "party_size": 3,
-    "resturant_id": 1,
-    "date": 1581638400000,	//Math.abs(2/14/2020)
-    "time": "7-8"
+    "phone": "123456",
+    "partySize": "3",
+    "resturantId": "1",
+    "date": "mm-dd-yyyy",
+    "time": "1:15"
   }
   ```
 
-* cancel a reservation:  DELETE ../reservation
+* get estimated time: GET ../reservation/waitlist
+
+  ```json
+  from frontend:
+  {
+    "resturantId": "1",
+    "partySize": "5",
+    "timestamp": "current time stamp"
+  }
+  ```
+
+* add to waitlist: POST ../reservation/waitlist/add
 
   ```json
   from frontend:
   {
     "firstname": "john",
     "lastname": "snow",
-    "phone": 123456,
-    "resturant_id": 1
+    "phone": "123456",
+    "partySize": "5",
+    "resturantId": "1",
+    "timestamp": "current time stamp"
   }
   ```
 
-* get estimated time: GET ../estimated-time
-
-  ```json
-  from frontend:
-  {
-    "resturant_id": 1,
-    "party_size": 5,
-    "timestamp": {{current_time}}
-  }
-  ```
-
-* add to waitlist: POST ../waitlist
-
-  ```json
-  from frontend:
-  {
-    "firstname": "john",
-    "lastname": "snow",
-    "phone": 123456,
-    "party_size": 5
-    "resturant_id": 1,
-    "timestamp": {{current_time}}
-  }
-  ```
-
+  
   
 
