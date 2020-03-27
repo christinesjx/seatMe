@@ -1,5 +1,10 @@
 package com.example.seatMe.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -15,8 +20,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
 @MappedSuperclass
-public class BaseEntity implements Serializable {
+public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -31,20 +40,12 @@ public class BaseEntity implements Serializable {
     private Long version;
 
     @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Date createdAt = new Date();
 
-    @Size(max = 20)
-    @Column(name = "created_by", length = 20)
-    private String createdBy;
 
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
-
-    @Size(max = 20)
-    @Column(name = "updated_by", length = 20)
-    private String updatedBy;
+    private Date updatedAt = new Date();;
 
 
 
@@ -92,13 +93,6 @@ public class BaseEntity implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
 
     public Date getUpdatedAt() {
         return updatedAt;
@@ -106,14 +100,6 @@ public class BaseEntity implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     @Override

@@ -2,61 +2,36 @@ package com.example.seatMe.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity(name = "restaurant_table")
 public class Table extends BaseEntity{
 
+    @Column(name = "min_size")
     private int minSize;
 
+    @Column(name = "max_size")
     private int maxSize;
 
+    @Column(name = "availability")
     private boolean availability;
 
     @JsonIgnore
+    @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     private Restaurant restaurant;
 
-    public Table(int minSize, int maxSize, boolean availability, Restaurant restaurant) {
+
+    public Table(int minSize, int maxSize) {
         this.minSize = minSize;
         this.maxSize = maxSize;
-        this.availability = availability;
-        this.restaurant = restaurant;
-    }
-
-    public int getMinSize() {
-        return minSize;
-    }
-
-    public void setMinSize(int minSize) {
-        this.minSize = minSize;
-    }
-
-    public int getMaxSize() {
-        return maxSize;
-    }
-
-    public void setMaxSize(int maxSize) {
-        this.maxSize = maxSize;
-    }
-
-    public boolean isAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(boolean availability) {
-        this.availability = availability;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
+        this.availability = true;
     }
 }
