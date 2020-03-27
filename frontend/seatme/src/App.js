@@ -2,15 +2,19 @@ import React from 'react';
 import './App.css';
 
 import SearchBar from './Component/customerSide/SearchBar/SearchBar';
-import JoinQueue from './Component/customerSide/JoinQueue/JoinQueue';
-import Header from './Component/customerSide/Header'
+import {BrowserRouter} from 'react-router-dom'
+import CustomerSide from './Component/customerSide/CustomerSide';
+
+
 
 function App() {
   return (
     <div>
-      <Header/>
-      <SearchBar/>
-      <JoinQueue/>
+      <BrowserRouter>
+        <CustomerSide/>
+     </BrowserRouter>
+      
+
     </div>
 
     

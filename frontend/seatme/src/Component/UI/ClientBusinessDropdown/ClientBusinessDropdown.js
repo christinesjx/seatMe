@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './ClientBusinessDropdown.css'
 
 class ClientBusinessDropdown extends Component {
     constructor() {
@@ -45,7 +44,6 @@ class ClientBusinessDropdown extends Component {
                     >
                         <div className="dropdown-item">
                             <button>Client</button>
-                            <br/>
                             <button>Business</button> 
                         </div>  
                     </div>
@@ -59,4 +57,4 @@ class ClientBusinessDropdown extends Component {
     }
 }
 
-export default ClientBusinessDropdown;
+export default ClientBusinessDropdown; 

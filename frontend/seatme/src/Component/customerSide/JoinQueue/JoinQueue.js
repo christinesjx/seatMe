@@ -1,10 +1,14 @@
 import React, {useState} from 'react'
 import Input from '../../UI/Input/Input'
 import './JoinQueue.css'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
+import {Link} from 'react-router-dom'
+
+
 
 const JoinQueue = (props) => { 
     const [formState, setFormState] = useState({
-        first_name :{
+        firstName :{
             elementType : 'input',
             elementConfig:{
                 type: 'text',
@@ -12,7 +16,7 @@ const JoinQueue = (props) => {
             },
             value: ''
         },
-        last_name :{
+        lastName :{
             elementType : 'input',
             elementConfig:{
                 type: 'text',
@@ -45,6 +49,16 @@ const JoinQueue = (props) => {
             value: ''
         }
     });
+
+    const [modal, setModal] = useState(false);
+
+    const {
+        buttonLabel,
+        className
+      } = props;
+        
+    const toggle = () => setModal(!modal);
+      
     const updateObject = (oldObject, updatedProperties) => {
         return {
             ...oldObject,
@@ -69,7 +83,10 @@ const JoinQueue = (props) => {
         for(let formElementIdentifier in formState){
             signInData[formElementIdentifier] = formState[formElementIdentifier].value;
         }
-        console.log(signInData)
+        const curTime = new Date();
+        signInData["currentTime"] = curTime;
+        toggle();
+         
     }
 
     const formElementsArr = [];
@@ -82,7 +99,7 @@ const JoinQueue = (props) => {
     return(
         <div className = 'SignIn'>
             <p>JOIN QUEUE</p>
-            <form onSubmit = {submitHandler}>
+            <form>
                 {formElementsArr.map(formElement => (
                     <Input
                         key={formElement.id}
@@ -92,7 +109,22 @@ const JoinQueue = (props) => {
                         changed = {event => inputChangedHandler(event,formElement.id)}
                         />
                 ))}
-                <button>Submit</button>
+                <div>
+                    <Button color="success" onClick={submitHandler}>Submit</Button>
+                    <Modal isOpen={modal} toggle={toggle} className={className}>
+                        <ModalHeader toggle={toggle}>Join Queue</ModalHeader>
+                        <ModalBody>
+                            <Alert color="success">
+                                 You've Join the waitlist
+                            </Alert>
+                        </ModalBody>
+                        <ModalFooter>
+                        <Button color="warning">
+                            <Link to = '/'>GO BACK</Link>
+                        </Button>
+                        </ModalFooter>
+                    </Modal>
+                </div>
             </form>
          
         </div>
