@@ -31,7 +31,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void registerNewRestaurant(RestaurantDTO restaurantDTO) throws NotFoundException {
-        User user = userRepo.findById(restaurantDTO.getRestaurantId()).orElse(null);
+        User user = userRepo.findById(Integer.valueOf(restaurantDTO.getRestaurantId()).longValue()).orElse(null);
         if(user == null){
             throw new NotFoundException("user not found");
         }
@@ -68,7 +68,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         if(restaurantsList.size() > 0){
             for(Restaurant restaurant: restaurantsList){
                 RestaurantDTO restaurantDTO = new RestaurantDTO();
-                restaurantDTO.setRestaurantId(restaurant.getId());
+                restaurantDTO.setRestaurantId(restaurant.getId().toString());
                 restaurantDTO.setName(restaurant.getName());
                 restaurantDTO.setPhone(restaurant.getPhone());
                 restaurantDTO.setAddress(restaurant.getAddress());
@@ -79,6 +79,15 @@ public class RestaurantServiceImpl implements RestaurantService {
             }
         }
         return restaurantsDTOList;
+    }
+
+    @Override
+    public Restaurant getRestaurants(String username) throws NotFoundException {
+        User user = userRepo.findByEmail(username).orElse(null);
+        if(user == null){
+            throw new NotFoundException("user not found");
+        }
+        return restaurantRepo.findByUser(user).orElse(null);
     }
 
 }

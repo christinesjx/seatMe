@@ -31,16 +31,18 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Reservation addNewReservation(ReservationDTO reservationDTO) throws NotFoundException {
+        String[] date =  reservationDTO.getDate().split("-");
+        Date c = new GregorianCalendar(Integer.parseInt(date[2]), Integer.parseInt(date[1]) - 1, Integer.parseInt(date[0])).getTime();;
 
-        Restaurant existing = restaurantRepo.findById(reservationDTO.getRestaurantId()).orElse(null);
+        Restaurant existing = restaurantRepo.findById(Integer.valueOf(reservationDTO.getRestaurantId()).longValue()).orElse(null);
         Reservation reservation = new Reservation(reservationDTO.getFirstName(), reservationDTO.getLastName(),
-                reservationDTO.getPhone(), reservationDTO.getPartySize(), reservationDTO.getDate(), TimeSlot.valueOf(reservationDTO.getTime()));
+                reservationDTO.getPhone(), reservationDTO.getPartySize(), c, TimeSlot.valueOf("TWO_FIFTEN")); //TODO: enum error
 
 
         // TODO
         if (existing != null) {
             reservation.setRestaurant(existing);
-            List<Reservation> reservations = reservationRepo.findByRestaurantAndDate(existing, reservationDTO.getDate()).orElse(null);
+            List<Reservation> reservations = reservationRepo.findByRestaurantAndDate(existing, c).orElse(null);
             List<Table> availableTables = tableRepo.findAllByRestaurantIdAndMaxSizeIsGreaterThanOrderByMinSize(existing.getId(), Integer.parseInt(reservationDTO.getPartySize())).orElse(null);
             if (availableTables != null) {
                 if (reservations != null) {
@@ -57,9 +59,7 @@ public class ReservationServiceImpl implements ReservationService {
                     reservation.setTable(availableTables.get(0));
                 }
                 return reservationRepo.save(reservation);
-
             }else throw new NotFoundException("No tables Found..");
-
         }else throw new NotFoundException("No restaurant Found..");
     }
 
@@ -93,5 +93,13 @@ public class ReservationServiceImpl implements ReservationService {
 
         }
         return timeSlot;
+    }
+
+    @Override
+    public List<Reservation> getAllReservation(Restaurant restaurant) throws NotFoundException {
+        Optional<List<Reservation>> list = reservationRepo.findByRestaurant(restaurant);
+        if(list.isPresent()){
+            return list.get();
+        }else throw new NotFoundException("no reservation");
     }
 }

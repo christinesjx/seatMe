@@ -9,10 +9,10 @@ import java.util.Date;
 @Getter
 @Setter
 public class TimeSlotDTO {
-    private long restaurantId;
+    private String restaurantId;
 
-    private Date date;
+    private String date;
 
-    private int partySize;
+    private String partySize;
 
 }

@@ -15,7 +15,7 @@ public class ReservationDTO {
     private String lastName;
     private String phone;
     private String partySize;
-    private Date date;
+    private String date;
     private String time;
-    private long restaurantId;
+    private String restaurantId;
 }

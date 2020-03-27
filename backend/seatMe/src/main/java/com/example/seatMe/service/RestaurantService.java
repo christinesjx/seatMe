@@ -1,6 +1,7 @@
 package com.example.seatMe.service;
 
 import com.example.seatMe.exception.NotFoundException;
+import com.example.seatMe.model.Restaurant;
 import com.example.seatMe.persistence.dto.RestaurantDTO;
 
 import java.util.List;
@@ -23,4 +24,8 @@ public interface RestaurantService {
 
 
     List<RestaurantDTO> getAllRestaurants();
+
+
+    Restaurant getRestaurants(String username) throws NotFoundException;
+
 }

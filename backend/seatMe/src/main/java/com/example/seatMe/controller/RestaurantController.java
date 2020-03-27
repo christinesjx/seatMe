@@ -1,16 +1,15 @@
 package com.example.seatMe.controller;
 
 import com.example.seatMe.exception.NotFoundException;
+import com.example.seatMe.model.Reservation;
+import com.example.seatMe.model.Restaurant;
 import com.example.seatMe.persistence.dto.RestaurantDTO;
 import com.example.seatMe.persistence.dto.TableDTO;
-import com.example.seatMe.persistence.dto.TimeSlotDTO;
 import com.example.seatMe.service.ReservationService;
 import com.example.seatMe.service.RestaurantService;
 import com.example.seatMe.service.TableService;
-import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,10 +54,11 @@ public class RestaurantController {
         return ResponseEntity.ok("table has been updated successfully");
     }
 
+    @ResponseBody
     @GetMapping("reservations/all")
-    public ResponseEntity<String> getAllReservations(@RequestParam int restaurantId) {
-        //TODO
-        return ResponseEntity.ok("");
+    public List<Reservation> getAllReservations(@RequestParam String username) throws NotFoundException {
+        Restaurant restaurant = restaurantService.getRestaurants(username);
+        return reservationService.getAllReservation(restaurant);
     }
 
     @DeleteMapping("table")
@@ -72,7 +72,4 @@ public class RestaurantController {
         tableService.changeTableAvailability(restaurantId, tableId);
         return ResponseEntity.ok("table availability changed successfully");
     }
-
-
-
 }

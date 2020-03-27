@@ -64,8 +64,6 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-
-
         httpSecurity
                 .csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
@@ -99,8 +97,6 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .ignoring()
             .antMatchers(HttpMethod.POST, "/registration");
-
-
     }
 }
 
