@@ -38,7 +38,7 @@ This project will be developed based on the following apis:
   }
   ```
 
-* restaurant login: POST ../resturants/basicauth 
+* restaurant login: POST ../authenticate 
 
   ```json
   from frontend:
@@ -60,57 +60,59 @@ This project will be developed based on the following apis:
 
     ```
 
-* delete a restaurant: DELETE ../resturants
 
-  ```json
-  from frontend: JWT token
-  ```
+* get all tables ../restaurants/${email}/tables
+```json
+from backend:
+    {
+        "id": 1,
+        "version": 0,
+        "createdAt": "2020-03-05T21:23:38.577+0000",
+        "updatedAt": "2020-03-05T21:23:38.564+0000",
+        "minSize": 2,
+        "maxSize": 10,
+        "availability": true
+    },
+    {
+        "id": 2,
+        "version": 0,
+        "createdAt": "2020-03-05T21:23:39.387+0000",
+        "updatedAt": "2020-03-05T21:23:39.387+0000",
+        "minSize": 2,
+        "maxSize": 10,
+        "availability": true
+    }
+```
 
-* add a table in restaurant:   POST ../resturants/tables
+* add a table in restaurant:   POST ../restaurants/${email}/table
 
   ```json
   from frontend:
-  JWT token 
-  +
   {
     "min_table_size": "2",
     "max_table_size": "4"
   }
   ```
 
-* remove a table in restaurant:  DELETE ../resturants/tables
+* remove a table in restaurant:  DELETE ../restaurants/${email}/table/${id}
 
-  ```json
-  from frontend: 
-  JWT token 
-  +
-  {
-    "table_id": "2"
-  }
-  ```
 
-* get a list of all tables in a restaurant: GET ../resturants/tables
+* update a table in restaurant: POST ../restaurants/${email}/table/update
+```json
+{
+    "min_table_size": "2",
+    "max_table_size": "4"
+}
+```
 
-  ```
-  JWT token
-  ```
 
-* change the current availability of a table: POST ../resturants/tables
+* change the current availability of a table: POST ../restaurants/${email}/table/${id}
 
-  ```json
-  JWT token 
-  +
-  {
-  "table_id": "2"
-  }
-  ```
 
 * get a list of all reservations: GET ../resturants/reservation
 
   ```json
   from frontend:
-  JWT token
-  +
   {
     "date": "mm-dd-yyyy"
   }
