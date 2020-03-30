@@ -24,11 +24,10 @@ This project will be developed based on the following apis:
   }
   ```
 
-* update restaurant info: POST ../resturants/info 
+* update restaurant info: POST ../resturants/{email}/info
   ```json
   from frontend:
   {
-  "email":"jxsun95@bu.edu",
   "name": "BU resturant",
   "address": "1 commonwealth ave",
   "zipcode": "02134",
@@ -61,7 +60,7 @@ This project will be developed based on the following apis:
     ```
 
 
-* get all tables ../restaurants/${email}/tables
+* get all tables ../restaurants/{email}/tables
 ```json
 from backend:
     {
@@ -84,7 +83,7 @@ from backend:
     }
 ```
 
-* add a table in restaurant:   POST ../restaurants/${email}/table
+* add a table in restaurant:   POST ../restaurants/{email}/table
 
   ```json
   from frontend:
@@ -94,10 +93,10 @@ from backend:
   }
   ```
 
-* remove a table in restaurant:  DELETE ../restaurants/${email}/table/${id}
+* remove a table in restaurant:  DELETE ../restaurants/{email}/table/{id}
 
 
-* update a table in restaurant: POST ../restaurants/${email}/table/update
+* update a table in restaurant: POST ../restaurants/{email}/table/update/{id}
 ```json
 {
     "min_table_size": "2",
@@ -106,7 +105,7 @@ from backend:
 ```
 
 
-* change the current availability of a table: POST ../restaurants/${email}/table/${id}
+* change the current availability of a table: POST ../restaurants/{email}/table/{id}
 
 
 * get a list of all reservations: GET ../resturants/reservation
