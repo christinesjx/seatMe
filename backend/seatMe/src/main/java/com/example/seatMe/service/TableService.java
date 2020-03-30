@@ -1,11 +1,16 @@
 package com.example.seatMe.service;
 
+import com.example.seatMe.model.Table;
 import com.example.seatMe.persistence.dto.TableDTO;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface TableService {
 
+    List<Table> findAllTables(Long restaurantId);
 
-    void addTable(TableDTO tableDTO);
+    void addTable(long RestaurantId, TableDTO tableDTO);
 
     /**
      * given the restaurantId, delete a table
@@ -20,4 +25,8 @@ public interface TableService {
      * @param tableId
      */
     void changeTableAvailability(Long restaurantId, long tableId);
+
+
+    void updateTable(long restaurantId, long tableId, TableDTO tableDTO);
+
 }

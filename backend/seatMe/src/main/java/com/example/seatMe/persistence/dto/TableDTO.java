@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TableDTO {
-    private String restaurantId;
 
     private String minSize;
 

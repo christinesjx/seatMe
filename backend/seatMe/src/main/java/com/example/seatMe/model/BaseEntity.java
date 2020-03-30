@@ -29,9 +29,9 @@ public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name="id", nullable=false, updatable=false)
     protected Long id;
 
     // optimistic Lock
