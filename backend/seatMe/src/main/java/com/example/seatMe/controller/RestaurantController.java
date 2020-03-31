@@ -3,6 +3,7 @@ package com.example.seatMe.controller;
 import com.example.seatMe.exception.NotFoundException;
 import com.example.seatMe.model.Reservation;
 import com.example.seatMe.model.Restaurant;
+import com.example.seatMe.model.Table;
 import com.example.seatMe.persistence.dto.RestaurantDTO;
 import com.example.seatMe.persistence.dto.TableDTO;
 import com.example.seatMe.service.ReservationService;
@@ -30,29 +31,53 @@ public class RestaurantController {
     @Autowired
     ReservationService reservationService;
 
-    @PostMapping("/registration")
-    public ResponseEntity<String> registerNewRestaurant(@Valid @RequestBody RestaurantDTO restaurantDTO) throws NotFoundException {
-        restaurantService.registerNewRestaurant(restaurantDTO);
+    public long getRestaurantIdFromEmail(String email) throws NotFoundException {
+        return restaurantService.getRestaurants(email).getId();
+    }
+
+    @PostMapping("/{email}/info")
+    public ResponseEntity<String> registerNewRestaurant(@Valid @RequestBody RestaurantDTO restaurantDTO, @PathVariable String email) throws NotFoundException {
+        restaurantService.registerNewRestaurant(restaurantDTO, email);
         return ResponseEntity.ok("restaurant has been created/updated successfully");
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> deleteRestaurant(@RequestParam int restaurantId) {
-        restaurantService.deleteRestaurant((long) restaurantId);
-        return ResponseEntity.ok("restaurant has been deleted successfully");
+    @ResponseBody
+    @GetMapping("/{email}/tables")
+    public List<Table> getAllTables(@PathVariable String email) throws NotFoundException {
+        long restaurantId = getRestaurantIdFromEmail(email);
+        return tableService.findAllTables(restaurantId);
     }
 
-    @PostMapping("table/add")
-    public ResponseEntity<String> addNewTable(@Valid @RequestBody TableDTO tableDTO) {
-        tableService.addTable(tableDTO);
+
+    @PostMapping("/{email}/table")
+    public ResponseEntity<String> addNewTable(@Valid @RequestBody TableDTO tableDTO, @PathVariable String email) throws NotFoundException {
+        long restaurantId = getRestaurantIdFromEmail(email);
+        tableService.addTable(restaurantId, tableDTO);
         return ResponseEntity.ok("table has been added successfully");
     }
 
-    @PostMapping("table/update")
-    public ResponseEntity<String> updateTable(@Valid @RequestBody TableDTO tableDTO) {
-        //TODO
+    @PostMapping("/{email}/table/update/{id}")
+    public ResponseEntity<String> updateTable(@Valid @RequestBody TableDTO tableDTO, @PathVariable String email, @PathVariable String id) throws NotFoundException {
+        long restaurantId = getRestaurantIdFromEmail(email);
+        tableService.updateTable(restaurantId, Integer.parseInt(id), tableDTO);
         return ResponseEntity.ok("table has been updated successfully");
     }
+
+    @DeleteMapping("/{email}/table/{id}")
+    public ResponseEntity<String> deleteTable(@PathVariable String email, @PathVariable String id) throws NotFoundException {
+        long restaurantId = getRestaurantIdFromEmail(email);
+        tableService.deleteTable(restaurantId, Integer.parseInt(id));
+        return ResponseEntity.ok("table has been deleted successfully");
+    }
+
+
+/*    @DeleteMapping("")
+    public ResponseEntity<String> deleteRestaurant(@RequestParam int restaurantId) {
+        restaurantService.deleteRestaurant((long) restaurantId);
+        return ResponseEntity.ok("restaurant has been deleted successfully");
+    }*/
+
+
 
     @ResponseBody
     @GetMapping("reservations/all")
@@ -61,11 +86,7 @@ public class RestaurantController {
         return reservationService.getAllReservation(restaurant);
     }
 
-    @DeleteMapping("table")
-    public ResponseEntity<String> deleteTable(@RequestParam Long tableId, @RequestParam Long restaurantId) {
-        tableService.deleteTable(restaurantId, tableId);
-        return ResponseEntity.ok("table has been deleted successfully");
-    }
+
 
     @PostMapping("table/availability")
     public ResponseEntity<String> changeTableAvailability(@RequestParam Long restaurantId, @RequestParam int tableId) {

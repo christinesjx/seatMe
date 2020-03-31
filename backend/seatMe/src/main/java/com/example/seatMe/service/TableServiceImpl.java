@@ -8,7 +8,8 @@ import com.example.seatMe.persistence.dto.TableDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -21,8 +22,13 @@ public class TableServiceImpl implements TableService {
     private RestaurantRepository restaurantRepo;
 
     @Override
-    public void addTable(TableDTO tableDTO) {
-        Restaurant restaurant = restaurantRepo.findById(Integer.valueOf(tableDTO.getRestaurantId()).longValue()).orElse(null);
+    public List<Table> findAllTables(Long restaurantId) {
+        return tableRepo.findAllByRestaurantId(restaurantId).orElse(null);
+    }
+
+    @Override
+    public void addTable(long restaurantId, TableDTO tableDTO) {
+        Restaurant restaurant = restaurantRepo.findById(restaurantId).orElse(null);
         if(restaurant != null){
             Table table = new Table(Integer.parseInt(tableDTO.getMinSize()), Integer.parseInt(tableDTO.getMaxSize()));
             restaurant.addTable(table);
@@ -32,13 +38,17 @@ public class TableServiceImpl implements TableService {
 
     @Override
     public void deleteTable(Long restaurantId, long tableId) {
-        Restaurant restaurant = restaurantRepo.findById(restaurantId).orElse(null);
+
+        tableRepo.deleteById(tableId);
+
+
+/*        Restaurant restaurant = restaurantRepo.findById(restaurantId).orElse(null);
         Table table = tableRepo.findById(tableId).orElse(null);
         if(restaurant != null){
             if(table != null){
                 tableRepo.delete(table);
             }
-        }
+        }*/
     }
 
     @Override
@@ -48,6 +58,20 @@ public class TableServiceImpl implements TableService {
         if(restaurant != null){
             if(table != null){
                 table.setAvailability(!table.isAvailability());
+                tableRepo.save(table);
+            }
+        }
+    }
+
+    @Override
+    public void updateTable(long restaurantId, long tableId, TableDTO tableDTO) {
+        Restaurant restaurant = restaurantRepo.findById(restaurantId).orElse(null);
+        Table table = tableRepo.findById(tableId).orElse(null);
+        if(restaurant != null){
+            if(table != null){
+                table.setMinSize(Integer.parseInt(tableDTO.getMinSize()));
+                table.setMaxSize(Integer.parseInt(tableDTO.getMaxSize()));
+                table.setAvailability(true);
                 tableRepo.save(table);
             }
         }

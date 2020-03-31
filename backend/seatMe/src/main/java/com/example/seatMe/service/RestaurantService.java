@@ -14,7 +14,7 @@ public interface RestaurantService {
      * update restaurant information
      * @param restaurantDTO
      */
-    void registerNewRestaurant(RestaurantDTO restaurantDTO) throws NotFoundException;
+    void registerNewRestaurant(RestaurantDTO restaurantDTO, String email) throws NotFoundException;
 
     /**
      * delete a restaurant based on id
