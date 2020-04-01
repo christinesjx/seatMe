@@ -15,7 +15,7 @@ This project will be developed based on the following apis:
 
 ### Enterprise side: 
 
-* register a new restaurant: POST ../resturants/registration 
+* register a new user: POST ../resturants/registration 
   ```json
   from frontend:
   {
@@ -24,7 +24,7 @@ This project will be developed based on the following apis:
   }
   ```
 
-* update restaurant info: POST ../resturants/{email}/info
+* register/update restaurant info: POST ../resturants/{email}/info
   ```json
   from frontend:
   {
@@ -59,8 +59,13 @@ This project will be developed based on the following apis:
 
     ```
 
+* check if user has restaurant GET ../{email}/isRestaurant
+```json
+from backend:
+    { "true" }
+```
 
-* get all tables ../restaurants/{email}/tables
+* get all tables GET ../restaurants/{email}/tables
 ```json
 from backend:
     {
