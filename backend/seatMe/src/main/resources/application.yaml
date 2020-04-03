@@ -49,3 +49,5 @@ system:
 
   aop:
     proxy-target-class: true
+
+

@@ -31,6 +31,12 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Reservation addNewReservation(ReservationDTO reservationDTO) throws NotFoundException {
+        System.out.println(reservationDTO.getDate());
+        System.out.println(reservationDTO.getPartySize());
+        System.out.println(reservationDTO.getTime());
+        System.out.println(reservationDTO.getFirstName());
+        System.out.println(reservationDTO.getRestaurantId());
+
         String[] date =  reservationDTO.getDate().split("-");
         Date c = new GregorianCalendar(Integer.parseInt(date[2]), Integer.parseInt(date[1]) - 1, Integer.parseInt(date[0])).getTime();;
 
@@ -89,7 +95,7 @@ public class ReservationServiceImpl implements ReservationService {
         // TODO
         if (existing != null) {
             List<Reservation> reservations = reservationRepo.findByRestaurantAndDate(existing, date).orElse(null);
-            List<Table> availableTables = tableRepo.findAllByRestaurantId(existing.getId()).orElse(null);
+            List<Table> availableTables = tableRepo.findAllByRestaurantIdOrderById(existing.getId()).orElse(null);
 
         }
         return timeSlot;

@@ -23,12 +23,14 @@ public class TableServiceImpl implements TableService {
 
     @Override
     public List<Table> findAllTables(Long restaurantId) {
-        return tableRepo.findAllByRestaurantId(restaurantId).orElse(null);
+        return tableRepo.findAllByRestaurantIdOrderById(restaurantId).orElse(null);
     }
 
     @Override
     public void addTable(long restaurantId, TableDTO tableDTO) {
         Restaurant restaurant = restaurantRepo.findById(restaurantId).orElse(null);
+        System.out.println(tableDTO.getMinSize());
+        System.out.println(tableDTO.getMaxSize());
         if(restaurant != null){
             Table table = new Table(Integer.parseInt(tableDTO.getMinSize()), Integer.parseInt(tableDTO.getMaxSize()));
             restaurant.addTable(table);
@@ -39,16 +41,11 @@ public class TableServiceImpl implements TableService {
     @Override
     public void deleteTable(Long restaurantId, long tableId) {
 
-        tableRepo.deleteById(tableId);
-
-
-/*        Restaurant restaurant = restaurantRepo.findById(restaurantId).orElse(null);
         Table table = tableRepo.findById(tableId).orElse(null);
-        if(restaurant != null){
             if(table != null){
-                tableRepo.delete(table);
+                tableRepo.deleteById(tableId);
             }
-        }*/
+
     }
 
     @Override

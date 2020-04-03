@@ -12,6 +12,6 @@ public class RestaurantDTO {
     private String zipCode;
     private String phone;
     private String cuisineType;
-    private String photoReferenceUrl;
+    private String photoReferenceUrl = null;
 
 }

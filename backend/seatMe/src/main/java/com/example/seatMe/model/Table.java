@@ -25,7 +25,7 @@ public class Table extends BaseEntity{
 
     @JsonIgnore
     @JoinColumn
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Restaurant restaurant;
 
 
