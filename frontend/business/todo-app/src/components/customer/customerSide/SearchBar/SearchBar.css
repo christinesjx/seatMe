@@ -1,0 +1,11 @@
+.Linktag{
+    color: wheat;
+    text-decoration: none;
+    
+}
+
+.Linktag:hover {
+    text-decoration: none;
+    color:wheat;
+}
+
