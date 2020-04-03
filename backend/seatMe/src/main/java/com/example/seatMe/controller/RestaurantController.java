@@ -35,10 +35,19 @@ public class RestaurantController {
         return restaurantService.getRestaurants(email).getId();
     }
 
+    @CrossOrigin
     @PostMapping("/{email}/info")
     public ResponseEntity<String> registerNewRestaurant(@Valid @RequestBody RestaurantDTO restaurantDTO, @PathVariable String email) throws NotFoundException {
         restaurantService.registerNewRestaurant(restaurantDTO, email);
         return ResponseEntity.ok("restaurant has been created/updated successfully");
+    }
+
+    @CrossOrigin
+    @ResponseBody
+    @GetMapping("/{email}")
+    public ResponseEntity<String> isRestaurant(@PathVariable String email) throws NotFoundException {
+        getRestaurantIdFromEmail(email);
+        return ResponseEntity.ok("true");
     }
 
     @ResponseBody
@@ -66,6 +75,7 @@ public class RestaurantController {
     @DeleteMapping("/{email}/table/{id}")
     public ResponseEntity<String> deleteTable(@PathVariable String email, @PathVariable String id) throws NotFoundException {
         long restaurantId = getRestaurantIdFromEmail(email);
+        System.out.println(id);
         tableService.deleteTable(restaurantId, Integer.parseInt(id));
         return ResponseEntity.ok("table has been deleted successfully");
     }
@@ -87,10 +97,10 @@ public class RestaurantController {
     }
 
 
-
-    @PostMapping("table/availability")
-    public ResponseEntity<String> changeTableAvailability(@RequestParam Long restaurantId, @RequestParam int tableId) {
-        tableService.changeTableAvailability(restaurantId, tableId);
+    @PostMapping("/{email}/table/{id}")
+    public ResponseEntity<String> changeTableAvailability(@PathVariable String email, @PathVariable String id) throws NotFoundException {
+        long restaurantId = getRestaurantIdFromEmail(email);
+        tableService.changeTableAvailability(restaurantId, Integer.parseInt(id));
         return ResponseEntity.ok("table availability changed successfully");
     }
 }

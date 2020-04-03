@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface TableRepository extends JpaRepository<Table, Long> {
 
-    Optional<List<Table>> findAllByRestaurantId(Long restaurantId);
+    Optional<List<Table>> findAllByRestaurantIdOrderById(Long restaurantId);
 
     Optional<List<Table>> findAllByRestaurantIdAndMaxSizeIsGreaterThanOrderByMinSize(Long restaurantId, int partySize);
 

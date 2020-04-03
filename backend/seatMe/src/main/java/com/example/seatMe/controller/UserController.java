@@ -45,6 +45,4 @@ public class UserController {
         User newUser = userService.save(user);
         return ResponseEntity.ok("userId: " + newUser.getId());
     }
-
-
 }
