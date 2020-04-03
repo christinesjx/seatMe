@@ -7,7 +7,8 @@ import SearchSummary from '../../UI/SearchSummary/SearchSummary'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter,Jumbotron, Alert } from 'reactstrap';
 
 import './SearchBar.css'
-import Options from '../../../Container/Options/Options';
+import Options from '../../Container/Options/Options';
+
 
 
 const SearchBar = (props) =>{
@@ -89,6 +90,7 @@ const SearchBar = (props) =>{
     
     const jumbotronButton = <Link className = 'Linktag' to = '/CustomerSide/Options'>More Options</Link>
     
+
     let searchFunction = 
         <div>
             <div>
