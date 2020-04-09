@@ -47,6 +47,9 @@ public class Restaurant extends BaseEntity {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CustomerQueue> waitList = new ArrayList<>();
+
 
     public void addTable(Table table) {
         tables.add(table);
@@ -56,6 +59,11 @@ public class Restaurant extends BaseEntity {
     public void removeTable(Table table) {
         tables.remove(table);
         table.setRestaurant(null);
+    }
+
+    public void addToWaitList(CustomerQueue customer) {
+        waitList.add(customer);
+        customer.setRestaurant(this);
     }
 
     public Restaurant(String name, String address, String zipCode, String phone, CuisineType cuisineType, String photoReference) {

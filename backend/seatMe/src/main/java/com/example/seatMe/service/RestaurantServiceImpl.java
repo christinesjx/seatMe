@@ -68,6 +68,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         if(restaurantsList.size() > 0){
             for(Restaurant restaurant: restaurantsList){
                 RestaurantDTO restaurantDTO = new RestaurantDTO();
+                restaurantDTO.setRestaurantId(restaurant.getId().toString());
                 restaurantDTO.setName(restaurant.getName());
                 restaurantDTO.setPhone(restaurant.getPhone());
                 restaurantDTO.setAddress(restaurant.getAddress());

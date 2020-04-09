@@ -1,11 +1,13 @@
 package com.example.seatMe.controller;
 
 import com.example.seatMe.exception.NotFoundException;
+import com.example.seatMe.model.CustomerQueue;
 import com.example.seatMe.model.Reservation;
 import com.example.seatMe.model.Restaurant;
 import com.example.seatMe.model.Table;
 import com.example.seatMe.persistence.dto.RestaurantDTO;
 import com.example.seatMe.persistence.dto.TableDTO;
+import com.example.seatMe.service.CustomerQueueService;
 import com.example.seatMe.service.ReservationService;
 import com.example.seatMe.service.RestaurantService;
 import com.example.seatMe.service.TableService;
@@ -30,6 +32,9 @@ public class RestaurantController {
 
     @Autowired
     ReservationService reservationService;
+
+    @Autowired
+    CustomerQueueService customerQueueService;
 
     public long getRestaurantIdFromEmail(String email) throws NotFoundException {
         return restaurantService.getRestaurants(email).getId();
@@ -80,13 +85,20 @@ public class RestaurantController {
         return ResponseEntity.ok("table has been deleted successfully");
     }
 
+    @ResponseBody
+    @GetMapping("/{email}/queue")
+    public List<CustomerQueue> getQueue(@PathVariable String email) throws NotFoundException {
+        Restaurant restaurant = restaurantService.getRestaurants(email);
+        return restaurant.getWaitList();
+    }
 
-/*    @DeleteMapping("")
+    /*
+    @DeleteMapping("")
     public ResponseEntity<String> deleteRestaurant(@RequestParam int restaurantId) {
         restaurantService.deleteRestaurant((long) restaurantId);
         return ResponseEntity.ok("restaurant has been deleted successfully");
-    }*/
-
+    }
+    */
 
 
     @ResponseBody
@@ -103,4 +115,6 @@ public class RestaurantController {
         tableService.changeTableAvailability(restaurantId, Integer.parseInt(id));
         return ResponseEntity.ok("table availability changed successfully");
     }
+
+
 }
