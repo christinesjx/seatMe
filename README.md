@@ -3,11 +3,9 @@
 ## Tutorials: 
 [ReactJS + Spring Boot](https://developer.okta.com/blog/2018/07/19/simple-crud-react-and-spring-boot#add-a-jpa-domain-model)
 
-[ReactJS + Spring cloud](https://spring.io/guides/tutorials/react-and-spring-data-rest)
+[ReactJS + Spring Boot](https://spring.io/guides/tutorials/react-and-spring-data-rest)
 
 [JWT token](https://jwt.io/)
-
-[Sample project on github](https://github.com/sqshq/piggymetrics)
 
 ## RESTful apis
 
