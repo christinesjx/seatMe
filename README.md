@@ -32,7 +32,7 @@ This project will be developed based on the following apis:
   "address": "1 commonwealth ave",
   "zipcode": "02134",
   "phone": "123456",
-  "cuisine_type": "chinese",
+  "cuisineType": "chinese",
   "photo": "url"
   }
   ```
@@ -93,8 +93,8 @@ from backend:
   ```json
   from frontend:
   {
-    "min_table_size": "2",
-    "max_table_size": "4"
+    "minSize": "2",
+    "maxSize": "4"
   }
   ```
 
@@ -104,8 +104,8 @@ from backend:
 * update a table in restaurant: POST ../restaurants/{email}/table/update/{id}
 ```json
 {
-    "min_table_size": "2",
-    "max_table_size": "4"
+    "minSize": "2",
+    "maxSize": "4"
 }
 ```
 
@@ -113,7 +113,7 @@ from backend:
 * change the current availability of a table: POST ../restaurants/{email}/table/{id}
 
 
-* get a list of all reservations: GET ../resturants/reservation
+* get a list of all reservations: GET ../resturants/{email}/reservations
 
   ```json
   from frontend:
@@ -125,30 +125,41 @@ from backend:
   ```json
   from backend:
   [
-    {"reservation_id": 1,
-    "firstname": "john",
-    "lastname": "snow",
-    "phone": "123456",
-    "party_size": "5",
-    "date": "mm-dd-yyyy",	
-    "time": "7:15"
+    {
+        "id": 124,
+        "firstName": "a",
+        "lastName": "b",
+        "phone": "1234",
+        "partySize": "2",
+        "date": "2021-02-02T05:00:00.000+0000",
+        "time": "1:15"    
   },
-    {"reservation_id": 2,
-    "firstname": "johnny",
-    "lastname": "snowy",
-    "phone": "123456",
-    "party_size": "3",
-    "date": "mm-dd-yyyy",	
-    "time": "8:15"
+    {   "id": 125,
+        "firstName": "c",
+        "lastName": "b",
+        "phone": "1234",
+        "partySize": "2",
+        "date": "2021-02-02T05:00:00.000+0000",
+        "time": "1:15"  
     }
   ]
   ```
 
-* get the waitlist queue
+* get the waitlist queue: GET ../restaurants/{email}/queue
 
-  ```json
-  from frontend: JWT token
-  ```
+```json
+[
+    {
+        "id": 119,
+        "firstName": "christine",
+        "lastName": "sun",
+        "phone": "123456",
+        "partySize": "10"
+    }
+]
+```
+
+* remove customer from the queue: POST ../restaurants/{email}/queue/{id}
 
   
 
@@ -228,7 +239,7 @@ from backend:
   }
   ```
 
-* add to waitlist: POST ../reservation/waitlist/add
+* add to waitlist: POST ../waitList/{restaurantId}/add
 
   ```json
   from frontend:
@@ -237,11 +248,10 @@ from backend:
     "lastname": "snow",
     "phone": "123456",
     "partySize": "5",
-    "resturantId": "1",
     "timestamp": "current time stamp"
   }
   ```
-
+  
   
   
 
