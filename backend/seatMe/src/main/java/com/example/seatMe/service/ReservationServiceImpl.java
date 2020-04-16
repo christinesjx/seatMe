@@ -102,10 +102,15 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<Reservation> getAllReservation(Restaurant restaurant) throws NotFoundException {
-        Optional<List<Reservation>> list = reservationRepo.findByRestaurant(restaurant);
-        if(list.isPresent()){
-            return list.get();
-        }else throw new NotFoundException("no reservation");
+    public List<Reservation> getAllReservation(Restaurant restaurant, String reservationDate) throws NotFoundException {
+        String[] date =  reservationDate.split("-");
+        Date c = new GregorianCalendar(Integer.parseInt(date[2]), Integer.parseInt(date[1]) - 1, Integer.parseInt(date[0])).getTime();;
+
+        List<Reservation> reservations = reservationRepo.findByRestaurantAndDate(restaurant, c).orElse(null);
+        if(reservations == null){
+            throw new NotFoundException("no reservation");
+        }
+        return reservations;
     }
+
 }

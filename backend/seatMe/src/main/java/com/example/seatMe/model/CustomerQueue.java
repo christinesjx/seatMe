@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Getter
@@ -27,17 +28,20 @@ public class CustomerQueue extends BaseEntity {
     @Column(name = "party_size")
     private String partySize;
 
+    @Column(name = "timestamp")
+    private Timestamp timestamp;
 
     @JsonIgnore
     @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     private Restaurant restaurant;
 
-    public CustomerQueue(String firstName, String lastName, String phone, String partySize) {
+    public CustomerQueue(String firstName, String lastName, String phone, String partySize, Timestamp timestamp) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.partySize = partySize;
+        this.timestamp = timestamp;
     }
 }
 

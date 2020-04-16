@@ -25,7 +25,7 @@ public class CustomerQueueServiceImpl implements CustomerQueueService{
     public void addToQueue(long restaurantId, CustomerDTO customerDTO) {
         Restaurant restaurant = restaurantRepo.findById(restaurantId).orElse(null);
         if(restaurant != null){
-            CustomerQueue customer = new CustomerQueue(customerDTO.getFirstName(), customerDTO.getLastName(), customerDTO.getPhone(), customerDTO.getPartySize());
+            CustomerQueue customer = new CustomerQueue(customerDTO.getFirstName(), customerDTO.getLastName(), customerDTO.getPhone(), customerDTO.getPartySize(), customerDTO.getTimestamp());
             restaurant.addToWaitList(customer);
             customerQueueRepo.save(customer);
         }

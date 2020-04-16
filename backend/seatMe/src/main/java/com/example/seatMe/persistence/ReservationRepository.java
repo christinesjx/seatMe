@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
-    Optional<List<Reservation>> findByRestaurant(Restaurant restaurant);
+    List<Reservation> findByRestaurant(Restaurant restaurant);
     Optional<List<Reservation>> findByRestaurantAndDate(Restaurant restaurant, Date date);
 
 

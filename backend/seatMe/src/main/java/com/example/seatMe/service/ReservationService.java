@@ -17,6 +17,6 @@ public interface ReservationService {
 
     List<String> findAvailableTimeSlot(long restaurantId, Date date, int partySize);
 
-    List<Reservation> getAllReservation(Restaurant restaurant) throws NotFoundException;
+    List<Reservation> getAllReservation(Restaurant restaurant, String reservationDate) throws NotFoundException;
 
 }

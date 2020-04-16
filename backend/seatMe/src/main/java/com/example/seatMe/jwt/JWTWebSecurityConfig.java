@@ -70,6 +70,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/reservation/**").permitAll()
+                .antMatchers("/waitList/**").permitAll()
                 .antMatchers("/registration").permitAll()
                 .anyRequest().authenticated();
 

@@ -36,7 +36,7 @@ public class RestaurantController {
     @Autowired
     CustomerQueueService customerQueueService;
 
-    public long getRestaurantIdFromEmail(String email) throws NotFoundException {
+    private long getRestaurantIdFromEmail(String email) throws NotFoundException {
         return restaurantService.getRestaurants(email).getId();
     }
 
@@ -92,6 +92,12 @@ public class RestaurantController {
         return restaurant.getWaitList();
     }
 
+    @PostMapping("/{email}/queue/{id}")
+    public ResponseEntity<String> removeFromQueue(@PathVariable String id, @PathVariable String email) throws NotFoundException {
+        customerQueueService.removeFromQueue(Integer.parseInt(id));
+        return ResponseEntity.ok("customer has been removed from the queue");
+    }
+
     /*
     @DeleteMapping("")
     public ResponseEntity<String> deleteRestaurant(@RequestParam int restaurantId) {
@@ -102,10 +108,11 @@ public class RestaurantController {
 
 
     @ResponseBody
-    @GetMapping("reservations/all")
-    public List<Reservation> getAllReservations(@RequestParam String username) throws NotFoundException {
-        Restaurant restaurant = restaurantService.getRestaurants(username);
-        return reservationService.getAllReservation(restaurant);
+    @GetMapping("/{email}/reservations/{date}")
+    public List<Reservation> getAllReservations(@PathVariable String email, @PathVariable String date) throws NotFoundException {
+        System.out.println(date);
+        Restaurant restaurant = restaurantService.getRestaurants(email);
+        return reservationService.getAllReservation(restaurant, date);
     }
 
 
@@ -115,6 +122,4 @@ public class RestaurantController {
         tableService.changeTableAvailability(restaurantId, Integer.parseInt(id));
         return ResponseEntity.ok("table availability changed successfully");
     }
-
-
 }
