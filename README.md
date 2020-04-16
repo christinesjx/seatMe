@@ -237,6 +237,14 @@ from backend:
   }
   ```
 
+  in minutes
+  ```json
+ 
+  from backend:
+  {
+    "estimated": "23" 
+  }
+  ```
 * add to waitlist: POST ../waitList/{restaurantId}/add
 
   ```json
