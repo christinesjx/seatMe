@@ -242,7 +242,7 @@ from backend:
  
   from backend:
   {
-    "estimated": "23" 
+    "estimatedTime": "23" 
   }
   ```
 * add to waitlist: POST ../waitList/{restaurantId}/add
