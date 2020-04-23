@@ -50,6 +50,8 @@ public class Restaurant extends BaseEntity {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomerQueue> waitList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TimeWindows> timeWindows = new ArrayList<>();
 
     public void addTable(Table table) {
         tables.add(table);

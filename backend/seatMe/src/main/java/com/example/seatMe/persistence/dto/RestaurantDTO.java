@@ -14,5 +14,8 @@ public class RestaurantDTO {
     private String phone;
     private String cuisineType;
     private String photoReferenceUrl = null;
+    private String startTime;
+    private String endTime;
+    private String avgDinningTime;
 
 }

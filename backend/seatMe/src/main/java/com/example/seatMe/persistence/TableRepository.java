@@ -13,7 +13,7 @@ public interface TableRepository extends JpaRepository<Table, Long> {
 
     Optional<List<Table>> findAllByRestaurantIdOrderById(Long restaurantId);
 
-    Optional<List<Table>> findAllByRestaurantIdAndMaxSizeIsGreaterThanOrderByMinSize(Long restaurantId, int partySize);
+    List<Table> findAllByRestaurantIdAndMaxSizeIsGreaterThanOrderByMinSize(Long restaurantId, int partySize);
 
     Optional<List<Table>> findAllByRestaurantIdAndAvailability(Long restaurantId, boolean b);
 

@@ -1,7 +1,6 @@
 package com.example.seatMe.controller;
 
 import com.example.seatMe.exception.NotFoundException;
-import com.example.seatMe.model.TimeSlot;
 import com.example.seatMe.persistence.dto.CustomerDTO;
 import com.example.seatMe.persistence.dto.ReservationDTO;
 import com.example.seatMe.persistence.dto.RestaurantDTO;
@@ -32,7 +31,6 @@ public class ReservationController {
     public ResponseEntity<String> addNewReservation(@Valid @RequestBody ReservationDTO reservationDTO) throws NotFoundException {
 
         reservationService.addNewReservation(reservationDTO);
-
         return ResponseEntity.ok("reservation has been created successfully");
     }
 

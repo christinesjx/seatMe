@@ -29,8 +29,11 @@ public class Reservation extends BaseEntity {
     @Column(name = "date")
     private Date date;
 
-    @Column(name = "time")
-    private TimeSlot time;
+
+    @JsonIgnore
+    @JoinColumn
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    private TimeWindows timeWindows;
 
     @JsonIgnore
     @JoinColumn
@@ -42,12 +45,12 @@ public class Reservation extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     private Restaurant restaurant;
 
-    public Reservation(String firstName, String lastName, String phone, String partySize, Date date, TimeSlot time) {
+    public Reservation(String firstName, String lastName, String phone, String partySize, Date date) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.partySize = partySize;
         this.date = date;
-        this.time = time;
     }
+
 }

@@ -4,7 +4,9 @@ import com.example.seatMe.exception.NotFoundException;
 import com.example.seatMe.model.CustomerQueue;
 import com.example.seatMe.model.Restaurant;
 import com.example.seatMe.persistence.CustomerQueueRepository;
+import com.example.seatMe.persistence.ReservationRepository;
 import com.example.seatMe.persistence.RestaurantRepository;
+import com.example.seatMe.persistence.TableRepository;
 import com.example.seatMe.persistence.dto.CustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,12 @@ public class CustomerQueueServiceImpl implements CustomerQueueService{
 
     @Autowired
     private CustomerQueueRepository customerQueueRepo;
+
+    @Autowired
+    private TableRepository tableRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepo;
 
 
     @Override

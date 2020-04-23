@@ -2,7 +2,6 @@ package com.example.seatMe.service;
 
 import com.example.seatMe.exception.NotFoundException;
 import com.example.seatMe.persistence.dto.CustomerDTO;
-import org.springframework.stereotype.Service;
 
 public interface CustomerQueueService {
 
@@ -10,5 +9,5 @@ public interface CustomerQueueService {
 
     void removeFromQueue(long waitListQueueId) throws NotFoundException;
 
-    //void getEstimatedTime(long restaurantId);
+//    void getEstimatedTime(long restaurantId, int partySize);
 }
