@@ -31,7 +31,10 @@ This project will be developed based on the following apis:
   "zipcode": "02134",
   "phone": "123456",
   "cuisineType": "chinese",
-  "photo": "url"
+  "photo": "url",
+  "startTime": "11:00",
+	"endTime": "18:00",
+	"avgDinningTime": "30"
   }
   ```
 
