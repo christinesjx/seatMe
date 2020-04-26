@@ -111,6 +111,21 @@ from backend:
 * change the current availability of a table: POST ../restaurants/{email}/table/{id}
 
 
+* add a reservation: POST ..restaurants/reservation/add
+
+  ```json
+  from frontend:
+  {
+    "firstname": "john",
+    "lastname": "snow",
+    "phone": "123456",
+    "partySize": "3",
+    "resturantId": "1",
+    "date": "mm-dd-yyyy",
+    "time": "1:15"
+  }
+  ```
+
 * get a list of all reservations: GET ../resturants/{email}/reservations
 
   ```json
@@ -156,6 +171,20 @@ from backend:
     }
 ]
 ```
+
+* add to waitlist: POST ../waitList/{restaurantId}/add
+
+  ```json
+  from frontend:
+  {
+    "firstname": "john",
+    "lastname": "snow",
+    "phone": "123456",
+    "partySize": "5",
+    "timestamp": "current time stamp"
+  }
+  ```
+  
 
 * remove customer from the queue: POST ../restaurants/{email}/queue/{id}
 
