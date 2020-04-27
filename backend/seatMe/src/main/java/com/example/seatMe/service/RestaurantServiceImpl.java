@@ -39,13 +39,17 @@ public class RestaurantServiceImpl implements RestaurantService {
         Optional<Restaurant> existing = restaurantRepo.findByUser(user);
         if(!existing.isPresent()){
             // add a new restaurant in database
+            LocalTime openTime = LocalTime.parse(restaurantDTO.getStartTime());
+            LocalTime closeTime = LocalTime.parse(restaurantDTO.getEndTime());
+
             Restaurant restaurant = new Restaurant(
                     restaurantDTO.getName(), restaurantDTO.getAddress(),
                     restaurantDTO.getZipCode(), restaurantDTO.getPhone(),
                     CuisineType.valueOf(restaurantDTO.getCuisineType()),
-                    restaurantDTO.getPhotoReferenceUrl());
+                    restaurantDTO.getPhotoReferenceUrl(), Integer.parseInt(restaurantDTO.getAvgDinningTime()), openTime, closeTime);
             restaurant.setUser(user);
-            setTimeSlot(restaurant, restaurantDTO.getStartTime(), restaurantDTO.getEndTime(), restaurantDTO.getAvgDinningTime());
+            List<TimeWindows> tws = setTimeSlot(restaurant, restaurantDTO.getStartTime(), restaurantDTO.getEndTime(), restaurantDTO.getAvgDinningTime());
+            restaurant.setTimeWindows(tws);
             restaurantRepo.save(restaurant);
         }else{
             // restaurant already existed, update info
@@ -54,7 +58,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             existing.get().setZipCode(restaurantDTO.getZipCode());
             existing.get().setPhone(restaurantDTO.getPhone());
             existing.get().setPhotoReferenceUrl(restaurantDTO.getPhotoReferenceUrl());
-
+            existing.get().setPhotoReferenceUrl(restaurantDTO.getPhotoReferenceUrl());
 
             restaurantRepo.save(existing.get());
         }
@@ -114,8 +118,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
             LocalTime endTime = startTime.plus(duration, MINUTES);
             TimeWindows timeWindows = new TimeWindows(startTime, endTime);
-/*            timeWindows.setRestaurant(restaurant);
-            timeWindowsRepo.save(timeWindows);*/
+            timeWindows.setRestaurant(restaurant);
+            timeWindowsRepo.save(timeWindows);
 
             timeWindowsList.add(timeWindows);
             totalMinutes -= duration;

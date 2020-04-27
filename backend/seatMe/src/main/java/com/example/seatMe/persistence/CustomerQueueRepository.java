@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface CustomerQueueRepository extends JpaRepository<CustomerQueue, Long> {
 
 
-    List<CustomerQueue> findAllByRestaurantIdOrderById(Long restaurantId);
+    List<CustomerQueue> findAllByRestaurantIdOrderByTimestamp(Long restaurantId);
+
 
 }

@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,15 @@ public class Restaurant extends BaseEntity {
 
     @Column(name = "photo_reference_url")
     private String photoReferenceUrl;
+
+    @Column(name = "avg_dinning_time")
+    private int avgDinningTime;
+
+    @Column(name = "open_time")
+    private LocalTime openTime;
+
+    @Column(name = "close_time")
+    private LocalTime closeTime;
 
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @OneToOne(cascade = CascadeType.ALL)
@@ -68,13 +79,16 @@ public class Restaurant extends BaseEntity {
         customer.setRestaurant(this);
     }
 
-    public Restaurant(String name, String address, String zipCode, String phone, CuisineType cuisineType, String photoReference) {
+    public Restaurant(String name, String address, String zipCode, String phone, CuisineType cuisineType, String photoReference, int avgDinningTime, LocalTime openTime, LocalTime closeTime) {
         this.name = name;
         this.address = address;
         this.zipCode = zipCode;
         this.phone = phone;
         this.cuisineType = cuisineType;
         this.photoReferenceUrl = photoReference;
+        this.avgDinningTime = avgDinningTime;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
     }
 }
 

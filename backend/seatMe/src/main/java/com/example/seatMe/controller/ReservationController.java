@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
+import java.sql.Timestamp;
 import java.util.*;
 
 @CrossOrigin
@@ -29,7 +31,6 @@ public class ReservationController {
 
     @PostMapping("reservation/add")
     public ResponseEntity<String> addNewReservation(@Valid @RequestBody ReservationDTO reservationDTO) throws NotFoundException {
-
         reservationService.addNewReservation(reservationDTO);
         return ResponseEntity.ok("reservation has been created successfully");
     }
@@ -43,7 +44,7 @@ public class ReservationController {
 
     @ResponseBody
     @GetMapping("reservation/restaurant/timeslot")
-    public List<String> test(@RequestParam("restaurantId") String restaurantId, @RequestParam("date") String date, @RequestParam("partySize") String partySize) {
+    public List<String> getAvailableTimeSlot(@RequestParam("restaurantId") String restaurantId, @RequestParam("date") String date, @RequestParam("partySize") String partySize) {
         String[] dateSplit =  date.split("-");
         Date c = new GregorianCalendar(Integer.parseInt(dateSplit[2]), Integer.parseInt(dateSplit[1]) - 1, Integer.parseInt(dateSplit[0])).getTime();;
         return reservationService.findAvailableTimeSlot(Integer.valueOf(restaurantId).longValue(), c, Integer.parseInt(partySize));
@@ -51,14 +52,16 @@ public class ReservationController {
 
     @PostMapping("waitList/{restaurantId}/add")
     public ResponseEntity<String> addToWaitList(@Valid @RequestBody CustomerDTO customerDTO, @PathVariable String restaurantId){
+        System.out.println("restaurantId" + restaurantId);
         customerQueueService.addToQueue(Integer.parseInt(restaurantId), customerDTO);
         return ResponseEntity.ok("customer has been added to queue");
     }
 
 
-    @GetMapping("waitList/{restaurantId}/{partySize}")
-    public ResponseEntity<String> getEstimatedTime(@PathVariable String partySize, @PathVariable String restaurantId){
-        return ResponseEntity.ok("10");
+    @GetMapping("reservation/waitList")
+    public ResponseEntity<String> getEstimatedTime(@RequestParam String partySize, @RequestParam String restaurantId, @RequestParam String timestamp) throws NotFoundException {
+        int estimatedTime = customerQueueService.getEstimatedTime(Integer.parseInt(restaurantId), Integer.parseInt(partySize));
+        return ResponseEntity.ok(estimatedTime + "");
     }
 
 /*

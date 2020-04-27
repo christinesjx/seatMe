@@ -83,7 +83,7 @@ public class ReservationServiceImpl implements ReservationService {
         Restaurant existing = restaurantRepo.findById(restaurantId).orElse(null);
 
         if (existing != null) {
-            List<Table> allTables = tableRepo.findAllByRestaurantIdAndMaxSizeIsGreaterThanOrderByMinSize(existing.getId(), partySize);
+            List<Table> allTables = tableRepo.findAllByRestaurantIdAndMaxSizeIsGreaterThanEqualOrderByMinSize(existing.getId(), partySize);
             for (Table t : allTables) {
                 if(getAvailableTimeOfTable(existing, date, t) != null){
                     availableTime.addAll(getAvailableTimeOfTable(existing, date, t));
@@ -130,7 +130,7 @@ public class ReservationServiceImpl implements ReservationService {
     private List<Table> findAllAvailableTable(Restaurant restaurant, Date date, LocalTime time, int partySize){
         List<Table> res = new ArrayList<>();
         if (restaurant != null) {
-            List<Table> allTables = tableRepo.findAllByRestaurantIdAndMaxSizeIsGreaterThanOrderByMinSize(restaurant.getId(), partySize);
+            List<Table> allTables = tableRepo.findAllByRestaurantIdAndMaxSizeIsGreaterThanEqualOrderByMinSize(restaurant.getId(), partySize);
             for (Table t : allTables) {
                 boolean isAvailable = isTableAvailable(restaurant, t, date, time);
                 if(isAvailable){

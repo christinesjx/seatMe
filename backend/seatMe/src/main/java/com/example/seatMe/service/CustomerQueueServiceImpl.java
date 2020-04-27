@@ -3,6 +3,7 @@ package com.example.seatMe.service;
 import com.example.seatMe.exception.NotFoundException;
 import com.example.seatMe.model.CustomerQueue;
 import com.example.seatMe.model.Restaurant;
+import com.example.seatMe.model.Table;
 import com.example.seatMe.persistence.CustomerQueueRepository;
 import com.example.seatMe.persistence.ReservationRepository;
 import com.example.seatMe.persistence.RestaurantRepository;
@@ -10,6 +11,9 @@ import com.example.seatMe.persistence.TableRepository;
 import com.example.seatMe.persistence.dto.CustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 public class CustomerQueueServiceImpl implements CustomerQueueService{
@@ -48,4 +52,41 @@ public class CustomerQueueServiceImpl implements CustomerQueueService{
         customer.setRestaurant(null);
         customerQueueRepo.delete(customer);
     }
+
+    @Override
+    public List<CustomerQueue> getQueue(long restaurantId) {
+        return customerQueueRepo.findAllByRestaurantIdOrderByTimestamp(restaurantId);
+    }
+
+
+    @Override
+    public int getEstimatedTime(long restaurantId, int partySize) throws NotFoundException {
+        Restaurant restaurant = restaurantRepo.findById(restaurantId).orElse(null);
+
+        int numberInLine = customerQueueRepo.findAllByRestaurantIdOrderByTimestamp(restaurantId).size() + 1;
+
+        if (restaurant == null){
+            throw new NotFoundException("restaurantId " + restaurantId + " not found");
+        }
+        int avgDinningTimeOfRestaurant = restaurant.getAvgDinningTime();
+        int numberOfCurrentAvailableTable = tableRepository.findAllByRestaurantIdAndAvailabilityAndMaxSizeIsGreaterThanEqualAndMinSizeIsLessThanEqual(restaurantId, true, partySize, partySize).size();
+        int numberOfTableInRestaurant = tableRepository.findAllByRestaurantIdAndMaxSizeIsGreaterThanEqualAndMinSizeIsLessThanEqual(restaurantId, partySize, partySize).size();
+
+        System.out.println("avgDinningTimeOfRestaurant " + avgDinningTimeOfRestaurant);
+        System.out.println("numberOfCurrentAvailableTable " + numberOfCurrentAvailableTable);
+        System.out.println("numberOfTableInRestaurant " + numberOfTableInRestaurant);
+        System.out.println("numberInLine " + numberInLine);
+
+        int waitTime;
+        if (numberInLine <= numberOfCurrentAvailableTable){
+            waitTime = 0;
+        }else{
+            waitTime = (numberInLine * avgDinningTimeOfRestaurant) / numberOfTableInRestaurant;
+            System.out.println("waitTime " +waitTime);
+        }
+
+        return waitTime;
+
+    }
+
 }

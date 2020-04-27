@@ -5,6 +5,8 @@ import com.example.seatMe.model.CustomerQueue;
 import com.example.seatMe.model.Reservation;
 import com.example.seatMe.model.Restaurant;
 import com.example.seatMe.model.Table;
+import com.example.seatMe.persistence.dto.CustomerDTO;
+import com.example.seatMe.persistence.dto.ReservationDTO;
 import com.example.seatMe.persistence.dto.RestaurantDTO;
 import com.example.seatMe.persistence.dto.TableDTO;
 import com.example.seatMe.service.CustomerQueueService;
@@ -40,14 +42,12 @@ public class RestaurantController {
         return restaurantService.getRestaurants(email).getId();
     }
 
-    @CrossOrigin
     @PostMapping("/{email}/info")
     public ResponseEntity<String> registerNewRestaurant(@Valid @RequestBody RestaurantDTO restaurantDTO, @PathVariable String email) throws NotFoundException {
         restaurantService.registerNewRestaurant(restaurantDTO, email);
         return ResponseEntity.ok("restaurant has been created/updated successfully");
     }
 
-    @CrossOrigin
     @ResponseBody
     @GetMapping("/{email}")
     public ResponseEntity<String> isRestaurant(@PathVariable String email) throws NotFoundException {
@@ -89,10 +89,10 @@ public class RestaurantController {
     @GetMapping("/{email}/queue")
     public List<CustomerQueue> getQueue(@PathVariable String email) throws NotFoundException {
         Restaurant restaurant = restaurantService.getRestaurants(email);
-        return restaurant.getWaitList();
+        return customerQueueService.getQueue(restaurant.getId());
     }
 
-    @PostMapping("/{email}/queue/{id}")
+    @DeleteMapping("/{email}/queue/{id}")
     public ResponseEntity<String> removeFromQueue(@PathVariable String id, @PathVariable String email) throws NotFoundException {
         customerQueueService.removeFromQueue(Integer.parseInt(id));
         return ResponseEntity.ok("customer has been removed from the queue");
@@ -105,6 +105,19 @@ public class RestaurantController {
         return ResponseEntity.ok("restaurant has been deleted successfully");
     }
     */
+
+    @PostMapping("waitList/{restaurantId}/add")
+    public ResponseEntity<String> addToWaitList(@Valid @RequestBody CustomerDTO customerDTO, @PathVariable String restaurantId){
+        customerQueueService.addToQueue(Integer.parseInt(restaurantId), customerDTO);
+        return ResponseEntity.ok("customer has been added to queue");
+    }
+
+
+    @PostMapping("reservation/add")
+    public ResponseEntity<String> addNewReservation(@Valid @RequestBody ReservationDTO reservationDTO) throws NotFoundException {
+        reservationService.addNewReservation(reservationDTO);
+        return ResponseEntity.ok("reservation has been created successfully");
+    }
 
 
     @ResponseBody
