@@ -1,0 +1,90 @@
+
+.welcome{
+    text-align: center;
+    height:700px;
+    width:100%;
+    background: url('../../images/landingPage.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    height: 100%;
+    text-align: center;
+    /* Solution part I. */
+    display: table;
+    
+}
+.Title{
+    color: #fefeff;
+    margin: 0,auto;
+    width: 100%;
+    height: 100%;
+    display: table-cell;
+    vertical-align: top;
+}
+.Intro{
+    font-size: 30px;
+    font-family: 'Tangerine';
+    color:black;
+}
+
+#container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 50px 0 150px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .button {
+    display: inline-flex;
+    height: 40px;
+    width: 150px;
+    border: 2px solid #BFC0C0;
+    margin: 20px 20px 20px 20px;
+    color: #BFC0C0;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: .8em;
+    letter-spacing: 1.5px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  Link {
+    color: rgb(249, 252, 252);
+    text-decoration: none;
+    letter-spacing: 1px;
+  }
+
+  #button-2 {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  #button-2 a {
+    position: relative;
+    transition: all .35s ease-Out;
+  }
+  
+  #slide {
+    width: 100%;
+    height: 100%;
+    left: -200px;
+    background: #BFC0C0;
+    position: absolute;
+    transition: all .35s ease-Out;
+    bottom: 0;
+  }
+  
+  #button-2:hover #slide {
+    left: 0;
+  }
+  
+  #button-2:hover a {
+    color: #2D3142;
+  }
+  
