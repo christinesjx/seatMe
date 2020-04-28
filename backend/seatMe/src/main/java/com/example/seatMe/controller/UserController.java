@@ -2,15 +2,11 @@ package com.example.seatMe.controller;
 
 import com.example.seatMe.model.User;
 
-import com.example.seatMe.service.SecurityService;
 import com.example.seatMe.service.UserService;
 import com.example.seatMe.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +19,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private SecurityService securityService;
 
     @Autowired
     private UserValidator userValidator;

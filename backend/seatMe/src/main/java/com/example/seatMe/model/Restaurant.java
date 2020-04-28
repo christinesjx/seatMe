@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,15 @@ public class Restaurant extends BaseEntity {
     @Column(name = "photo_reference_url")
     private String photoReferenceUrl;
 
+    @Column(name = "avg_dinning_time")
+    private int avgDinningTime;
+
+    @Column(name = "open_time")
+    private LocalTime openTime;
+
+    @Column(name = "close_time")
+    private LocalTime closeTime;
+
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
@@ -47,6 +57,11 @@ public class Restaurant extends BaseEntity {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CustomerQueue> waitList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TimeWindows> timeWindows = new ArrayList<>();
 
     public void addTable(Table table) {
         tables.add(table);
@@ -58,13 +73,21 @@ public class Restaurant extends BaseEntity {
         table.setRestaurant(null);
     }
 
-    public Restaurant(String name, String address, String zipCode, String phone, CuisineType cuisineType, String photoReference) {
+    public void addToWaitList(CustomerQueue customer) {
+        waitList.add(customer);
+        customer.setRestaurant(this);
+    }
+
+    public Restaurant(String name, String address, String zipCode, String phone, CuisineType cuisineType, String photoReference, int avgDinningTime, LocalTime openTime, LocalTime closeTime) {
         this.name = name;
         this.address = address;
         this.zipCode = zipCode;
         this.phone = phone;
         this.cuisineType = cuisineType;
         this.photoReferenceUrl = photoReference;
+        this.avgDinningTime = avgDinningTime;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
     }
 }
 

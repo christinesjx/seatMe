@@ -1,18 +1,20 @@
 package com.example.seatMe.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(name = "reservation")
-public class Reservation extends BaseEntity {
+@Entity(name = "queue")
+public class CustomerQueue extends BaseEntity {
 
     @Column(name = "first_name")
     private String firstName;
@@ -26,31 +28,20 @@ public class Reservation extends BaseEntity {
     @Column(name = "party_size")
     private String partySize;
 
-    @Column(name = "date")
-    private Date date;
-
-
-    @JsonIgnore
-    @JoinColumn
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
-    private TimeWindows timeWindows;
-
-    @JsonIgnore
-    @JoinColumn
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
-    private Table table;
+    @Column(name = "timestamp")
+    private Timestamp timestamp;
 
     @JsonIgnore
     @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     private Restaurant restaurant;
 
-    public Reservation(String firstName, String lastName, String phone, String partySize, Date date) {
+    public CustomerQueue(String firstName, String lastName, String phone, String partySize, Timestamp timestamp) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.partySize = partySize;
-        this.date = date;
+        this.timestamp = timestamp;
     }
-
 }
+

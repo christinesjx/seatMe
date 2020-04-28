@@ -9,6 +9,6 @@ import lombok.Setter;
 public class TableDTO {
 
     private String minSize;
-
     private String maxSize;
+
 }

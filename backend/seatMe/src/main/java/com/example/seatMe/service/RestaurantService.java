@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface RestaurantService {
 
-
     /**
      * register a new restaurant
      * update restaurant information
