@@ -3,7 +3,6 @@ package com.example.seatMe.service;
 import com.example.seatMe.exception.NotFoundException;
 import com.example.seatMe.model.Reservation;
 import com.example.seatMe.model.Restaurant;
-import com.example.seatMe.model.TimeSlot;
 import com.example.seatMe.persistence.dto.ReservationDTO;
 
 import java.util.Date;
@@ -17,6 +16,8 @@ public interface ReservationService {
 
     List<String> findAvailableTimeSlot(long restaurantId, Date date, int partySize);
 
-    List<Reservation> getAllReservation(Restaurant restaurant, String reservationDate) throws NotFoundException;
+    List<ReservationDTO> getReservationOnDate(Restaurant restaurant, String reservationDate) throws NotFoundException;
+
+    List<ReservationDTO> getAllReservation(Restaurant restaurant) throws NotFoundException;
 
 }

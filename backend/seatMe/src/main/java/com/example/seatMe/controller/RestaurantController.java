@@ -2,7 +2,6 @@ package com.example.seatMe.controller;
 
 import com.example.seatMe.exception.NotFoundException;
 import com.example.seatMe.model.CustomerQueue;
-import com.example.seatMe.model.Reservation;
 import com.example.seatMe.model.Restaurant;
 import com.example.seatMe.model.Table;
 import com.example.seatMe.persistence.dto.CustomerDTO;
@@ -13,12 +12,14 @@ import com.example.seatMe.service.CustomerQueueService;
 import com.example.seatMe.service.ReservationService;
 import com.example.seatMe.service.RestaurantService;
 import com.example.seatMe.service.TableService;
+import com.example.seatMe.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
@@ -98,6 +99,14 @@ public class RestaurantController {
         return ResponseEntity.ok("customer has been removed from the queue");
     }
 
+    @ResponseBody
+    @GetMapping("/timeslot")
+    public List<String> getAvailableTimeSlot(@RequestParam("email") String email, @RequestParam("date") String date, @RequestParam("partySize") String partySize) throws NotFoundException {
+        Restaurant restaurant = restaurantService.getRestaurants(email);
+        Date reservedDate = DateUtil.formatDate(date);
+        return reservationService.findAvailableTimeSlot(restaurant.getId(), reservedDate, Integer.parseInt(partySize));
+    }
+
     /*
     @DeleteMapping("")
     public ResponseEntity<String> deleteRestaurant(@RequestParam int restaurantId) {
@@ -106,26 +115,36 @@ public class RestaurantController {
     }
     */
 
-    @PostMapping("waitList/{restaurantId}/add")
-    public ResponseEntity<String> addToWaitList(@Valid @RequestBody CustomerDTO customerDTO, @PathVariable String restaurantId){
-        customerQueueService.addToQueue(Integer.parseInt(restaurantId), customerDTO);
+    @PostMapping("waitList/{email}/queue")
+    public ResponseEntity<String> addToWaitList(@Valid @RequestBody CustomerDTO customerDTO, @PathVariable String email) throws NotFoundException {
+        long restaurantId = getRestaurantIdFromEmail(email);
+        customerQueueService.addToQueue((restaurantId), customerDTO);
         return ResponseEntity.ok("customer has been added to queue");
     }
 
 
-    @PostMapping("reservation/add")
-    public ResponseEntity<String> addNewReservation(@Valid @RequestBody ReservationDTO reservationDTO) throws NotFoundException {
+    @PostMapping("/{email}/reservation")
+    public ResponseEntity<String> addNewReservation(@Valid @RequestBody ReservationDTO reservationDTO, @PathVariable String email) throws NotFoundException {
+        long restaurantId = getRestaurantIdFromEmail(email);
+
+        reservationDTO.setRestaurantId(String.valueOf(restaurantId));
         reservationService.addNewReservation(reservationDTO);
         return ResponseEntity.ok("reservation has been created successfully");
     }
 
 
     @ResponseBody
-    @GetMapping("/{email}/reservations/{date}")
-    public List<Reservation> getAllReservations(@PathVariable String email, @PathVariable String date) throws NotFoundException {
-        System.out.println(date);
+    @GetMapping("/{email}/reservation")
+    public List<ReservationDTO> getAllReservations(@PathVariable String email) throws NotFoundException {
         Restaurant restaurant = restaurantService.getRestaurants(email);
-        return reservationService.getAllReservation(restaurant, date);
+        return reservationService.getAllReservation(restaurant);
+    }
+
+    @ResponseBody
+    @GetMapping("/{email}/reservation/{date}")
+    public List<ReservationDTO> getReservationsOnDate(@PathVariable String email, @PathVariable String date) throws NotFoundException {
+        Restaurant restaurant = restaurantService.getRestaurants(email);
+        return reservationService.getReservationOnDate(restaurant, date);
     }
 
 
@@ -134,5 +153,13 @@ public class RestaurantController {
         long restaurantId = getRestaurantIdFromEmail(email);
         tableService.changeTableAvailability(restaurantId, Integer.parseInt(id));
         return ResponseEntity.ok("table availability changed successfully");
+    }
+
+
+    @DeleteMapping("/{email}/reservation/{id}")
+    public ResponseEntity<String> deleteReservation(@PathVariable String email, @PathVariable String id) throws NotFoundException {
+        getRestaurantIdFromEmail(email);
+        reservationService.removeReservation((long) Integer.parseInt(id));
+        return ResponseEntity.ok("reservation has been deleted successfully");
     }
 }

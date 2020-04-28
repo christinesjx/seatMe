@@ -7,18 +7,17 @@ import com.example.seatMe.persistence.dto.RestaurantDTO;
 import com.example.seatMe.service.CustomerQueueService;
 import com.example.seatMe.service.ReservationService;
 import com.example.seatMe.service.RestaurantService;
+import com.example.seatMe.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
-import java.sql.Timestamp;
 import java.util.*;
 
 @CrossOrigin
 @Controller
-public class ReservationController {
+public class CustomerController {
 
     @Autowired
     ReservationService reservationService;
@@ -45,9 +44,8 @@ public class ReservationController {
     @ResponseBody
     @GetMapping("reservation/restaurant/timeslot")
     public List<String> getAvailableTimeSlot(@RequestParam("restaurantId") String restaurantId, @RequestParam("date") String date, @RequestParam("partySize") String partySize) {
-        String[] dateSplit =  date.split("-");
-        Date c = new GregorianCalendar(Integer.parseInt(dateSplit[2]), Integer.parseInt(dateSplit[1]) - 1, Integer.parseInt(dateSplit[0])).getTime();;
-        return reservationService.findAvailableTimeSlot(Integer.valueOf(restaurantId).longValue(), c, Integer.parseInt(partySize));
+        Date reservedDate = DateUtil.formatDate(date);
+        return reservationService.findAvailableTimeSlot(Integer.valueOf(restaurantId).longValue(), reservedDate, Integer.parseInt(partySize));
     }
 
     @PostMapping("waitList/{restaurantId}/add")

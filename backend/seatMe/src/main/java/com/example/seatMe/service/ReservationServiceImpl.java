@@ -7,11 +7,13 @@ import com.example.seatMe.persistence.RestaurantRepository;
 import com.example.seatMe.persistence.TableRepository;
 import com.example.seatMe.persistence.TimeWindowsRepository;
 import com.example.seatMe.persistence.dto.ReservationDTO;
+import com.example.seatMe.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -33,15 +35,11 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Reservation addNewReservation(ReservationDTO reservationDTO) throws NotFoundException {
-        System.out.println(reservationDTO.getDate());
-        System.out.println(reservationDTO.getPartySize());
-        System.out.println(reservationDTO.getTime());
-        System.out.println(reservationDTO.getFirstName());
-        System.out.println(reservationDTO.getRestaurantId());
+        Date reservedDate = DateUtil.formatDate(reservationDTO.getDate());
 
         Restaurant restaurant = restaurantRepo.findById(Integer.valueOf(reservationDTO.getRestaurantId()).longValue()).orElse(null);
-        String[] date =  reservationDTO.getDate().split("-");
-        Date reservedDate = new GregorianCalendar(Integer.parseInt(date[2]), Integer.parseInt(date[1]) - 1, Integer.parseInt(date[0])).getTime();
+
+
         LocalTime startTime = LocalTime.parse(reservationDTO.getTime());
         TimeWindows timeWindows = timeWindowsRepo.findByRestaurantIdAndStartTime((long) Integer.parseInt(reservationDTO.getRestaurantId()), startTime);
         int partySize = Integer.parseInt(reservationDTO.getPartySize());
@@ -73,7 +71,7 @@ public class ReservationServiceImpl implements ReservationService {
 
         reservation.setTable(null);
         reservation.setRestaurant(null);
-
+        reservation.setTimeWindows(null);
         reservationRepo.delete(reservation);
     }
 
@@ -91,23 +89,25 @@ public class ReservationServiceImpl implements ReservationService {
             }
         }
 
+        availableTime.sort(Comparator.comparing(TimeWindows::getStartTime));
         List<String> availableStartTime = new ArrayList<>();
         for(TimeWindows tw: availableTime){
             availableStartTime.add(tw.getStartTime().toString());
         }
 
-        return availableStartTime;
+        return availableStartTime.stream().distinct().collect(Collectors.toList());
     }
 
     private List<TimeWindows> getAvailableTimeOfTable(Restaurant restaurant, Date date, Table table) {
 
         List<TimeWindows> allTimeWindows = timeWindowsRepo.findAllByRestaurantId(restaurant.getId());
         List<Reservation> reservationsOfTable = reservationRepo.findByRestaurantAndDateAndTable(restaurant, date, table);
+
         if(reservationsOfTable.size() == 0){
             return allTimeWindows;
         }
 
-        List<TimeWindows> reservedTime = null;
+        List<TimeWindows> reservedTime = new ArrayList<>();
         for (Reservation r : reservationsOfTable) {
             reservedTime.add(r.getTimeWindows());
         }
@@ -143,15 +143,50 @@ public class ReservationServiceImpl implements ReservationService {
 
 
     @Override
-    public List<Reservation> getAllReservation(Restaurant restaurant, String reservationDate) throws NotFoundException {
-        String[] date =  reservationDate.split("-");
-        Date c = new GregorianCalendar(Integer.parseInt(date[2]), Integer.parseInt(date[1]) - 1, Integer.parseInt(date[0])).getTime();;
+    public List<ReservationDTO> getReservationOnDate(Restaurant restaurant, String reservationDate) throws NotFoundException {
 
-        List<Reservation> reservations = reservationRepo.findByRestaurantAndDate(restaurant, c).orElse(null);
+        Date reservedDate = DateUtil.formatDate(reservationDate);
+
+        List<Reservation> reservations = reservationRepo.findByRestaurantAndDate(restaurant, reservedDate).orElse(null);
+
+        List<ReservationDTO> reservationDTOS = new ArrayList<>();
+
         if(reservations == null){
             throw new NotFoundException("no reservation");
         }
-        return reservations;
+
+        convertReservationToReservationDTO(reservations, reservationDTOS);
+
+        return reservationDTOS;
+    }
+
+    private void convertReservationToReservationDTO(List<Reservation> reservations, List<ReservationDTO> reservationDTOS) {
+        for(Reservation r: reservations){
+            ReservationDTO reservationDTO = new ReservationDTO();
+            reservationDTO.setReservationId(r.getId().toString());
+            reservationDTO.setFirstName(r.getFirstName());
+            reservationDTO.setLastName(r.getLastName());
+            reservationDTO.setPhone(r.getPhone());
+
+            reservationDTO.setPartySize(r.getPartySize());
+            reservationDTO.setDate(r.getDate().toString());
+            reservationDTO.setTime(r.getTimeWindows().getStartTime().toString());
+            reservationDTOS.add(reservationDTO);
+        }
+    }
+
+
+    @Override
+    public List<ReservationDTO> getAllReservation(Restaurant restaurant) throws NotFoundException {
+
+        List<Reservation> reservations = reservationRepo.findByRestaurant(restaurant);
+        List<ReservationDTO> reservationDTOS = new ArrayList<>();
+
+        convertReservationToReservationDTO(reservations, reservationDTOS);
+        if(reservations.isEmpty()){
+            throw new NotFoundException("no reservation");
+        }
+        return reservationDTOS;
     }
 
 }

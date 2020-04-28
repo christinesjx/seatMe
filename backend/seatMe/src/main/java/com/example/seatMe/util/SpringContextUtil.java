@@ -1,3 +1,4 @@
+/*
 package com.example.seatMe.util;
 
 import org.springframework.beans.BeansException;
@@ -37,4 +38,4 @@ public class SpringContextUtil implements ApplicationContextAware {
 		return applicationContext.getType(name);
 	}
 
-}
+}*/

@@ -4,7 +4,6 @@ import com.example.seatMe.exception.NotFoundException;
 import com.example.seatMe.model.CustomerQueue;
 import com.example.seatMe.persistence.dto.CustomerDTO;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public interface CustomerQueueService {

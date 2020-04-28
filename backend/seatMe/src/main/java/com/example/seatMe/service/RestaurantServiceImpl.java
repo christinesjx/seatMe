@@ -83,6 +83,9 @@ public class RestaurantServiceImpl implements RestaurantService {
                 restaurantDTO.setCuisineType(restaurant.getCuisineType().name());
                 restaurantDTO.setZipCode(restaurant.getZipCode());
                 restaurantDTO.setPhotoReferenceUrl(restaurant.getPhotoReferenceUrl());
+                restaurantDTO.setStartTime(restaurant.getOpenTime().toString());
+                restaurantDTO.setEndTime(restaurant.getCloseTime().toString());
+                restaurantDTO.setAvgDinningTime(restaurant.getAvgDinningTime()+" mins");
                 restaurantsDTOList.add(restaurantDTO);
             }
         }
@@ -102,12 +105,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     private List<TimeWindows> setTimeSlot(Restaurant restaurant, String restaurantStartTime, String restaurantEndTime, String avgTime){
         LocalTime restaurantStartTime1 = LocalTime.parse(restaurantStartTime);
         LocalTime restaurantEndTime1 = LocalTime.parse(restaurantEndTime);
-
         List<TimeWindows> timeWindowsList = new ArrayList<>();
-/*
-        LocalTime restaurantStartTime1 = LocalTime.of( 11 ,0);
-        LocalTime restaurantEndTime1 = LocalTime.of( 20 , 0 );
-*/
 
         long totalMinutes = restaurantEndTime1.getLong(MINUTE_OF_DAY) - restaurantStartTime1.getLong(MINUTE_OF_DAY);
 
