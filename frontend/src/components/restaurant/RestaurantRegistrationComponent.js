@@ -6,9 +6,10 @@ import restaurantService from '../../api/todo/RestaurantService'
 import DatePicker from "react-datepicker";
 
 
+
 const RestaurantRegistrationComponent = (props) => {
-    const [openTime, setOpenTime] = useState(new Date());
-    const [closeTime, setCloseTime] = useState(new Date());
+    const [openTime, setOpenTime] = useState('');
+    const [closeTime, setCloseTime] = useState('');
     
  
     
@@ -35,11 +36,12 @@ const RestaurantRegistrationComponent = (props) => {
         console.log(restaurantInfo)
 
         let username = AuthenticationService.getLoggedInUserName()
-
+        const formattedOpenTime = convertTimeToString(openTime)
+        const formattedCloseTime = convertTimeToString(closeTime)
         const restaurantSubmit = {
             ...restaurantInfo,
-            startTime: openTime,
-            endTime : closeTime}
+            startTime: formattedOpenTime,
+            endTime : formattedCloseTime}
 
             console.log("restaurantSubmit");
             console.log(restaurantSubmit);
@@ -49,39 +51,43 @@ const RestaurantRegistrationComponent = (props) => {
         props.history.push(`/welcome/${username}`)
     }
 
-    // const openTimeSelectedHandler = (date) => {
-    //     const formattedTime = convertTimeToString(date);
-    //     console.log("formattedTime");
-    //     console.log(formattedTime);
-    //     setOpenTime(formattedTime);
-    //     console.log("setOpenTime(formattedTime)")
-    //     console.log(openTime)
-    // }
     const openTimeSelectedHandler = (date) => {
 
         setOpenTime(date);
-        console.log("setOpenTime(formattedTime)")
+        convertTimeToString(date)
+       
+        
+        console.log("setOpenTime(date)")
+        console.log(date);
         console.log(openTime)
     }
 
   
 
-    // const openTimeSelectedHandler = (date) => {
-    //     setOpenTime(date);
-    //     console.log(openTime)
-
-    // }
-
 
     const closeTimeSelectedHandler = (date) => {
-        const formattedTime = convertTimeToString(date);
-        setCloseTime(formattedTime);
+        setCloseTime(date);
+        
+        console.log("setCloseTime(date)")
+        console.log(date);
+        console.log(closeTime)
     }
 
     const convertTimeToString = (date) =>{
+        let hour = date.getHours();
+        let minutes = date.getMinutes();
+        
+        if(hour < 10){
+            hour = '0' + hour
+        }
+        if(minutes < 10){
+            minutes = '0' + minutes
+        }
+
         console.log("convertTimeToString");
-        console.log(date.getHours() + ':' + date.getMinutes());
-        return date.getHours() + ':' + date.getMinutes();
+        console.log(hour + ':' + minutes);
+
+        return hour + ':' + minutes;
     }
 
 
@@ -138,7 +144,6 @@ const RestaurantRegistrationComponent = (props) => {
                           name="openTime"
                         />
                         
-                    {/* <input type="text" className="form-control" placeholder="Start Time" name="startTime" required onChange={handleChange} /> */}
                 </div>
                 <div className="form-group">
                     <label>Close Time</label>
@@ -152,7 +157,6 @@ const RestaurantRegistrationComponent = (props) => {
                           onChange={closeTimeSelectedHandler} 
                           name="closeTime"
                         />
-                                        {/* <input type="text" className="form-control" placeholder="End Time" name="endTime" required onChange={handleChange} /> */}
                 </div>
                 <div className="form-group">
                     <label>Average Dining Time</label>
