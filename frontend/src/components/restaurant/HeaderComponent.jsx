@@ -13,14 +13,12 @@ class HeaderComponent extends Component {
             <header>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
                     <div><a href="" className="navbar-brand"> Test </a></div>
-                    <ul className="navbar-nav">
-                  <li><Link className="nav-link" to="/">Home</Link></li>
+    
 
-              </ul>
                     <ul className="navbar-nav">
                         {isUserLoggedIn && <li><Link className="nav-link" to="/welcome/!!">Home</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/tables">tables</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/reservation"> Reservations</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/tables">Table</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/reservation"> Reservation</Link></li>}
                         {isUserLoggedIn && <li><Link className="nav-link" to="/queue"> Queue</Link></li>}
 
                     </ul>
