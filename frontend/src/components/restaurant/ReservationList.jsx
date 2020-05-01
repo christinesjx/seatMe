@@ -10,7 +10,7 @@ import Axios from 'axios';
 
 
 const ReservationList = (props) =>{
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState('');
     const[reservations, setReservations] = useState([]);
     const[message, setMessage] = useState(null);
     const[modal, setModal] = useState(false);
@@ -77,7 +77,7 @@ const ReservationList = (props) =>{
 
         const newObject = {
             ...reservationInfo,
-            date: selectedDate,
+            date: converDateToString(selectedDate),
             time: selectedTime
         }
 
@@ -121,17 +121,17 @@ const ReservationList = (props) =>{
 
     const dateSelectedHandler = (date) => {
         setStartDate (date);
-        const dateFormatted = converDateToString(startDate);
+        // const dateFormatted = converDateToString(startDate);
         // const updatedReservationInfo = {...reservationInfo};
         // updatedReservationInfo.date = dateFormatted;
         // setReservationInfo(updatedReservationInfo);
         
-        setSelectedDate(dateFormatted);
+        setSelectedDate(date);
 
         console.log("dateSelectedHandler")
         console.log("props.restaurantId" + props.restaurantId)
         console.log("partySize" + reservationInfo['partySize'])
-        console.log("date" + dateFormatted)
+        // console.log("date" + dateFormatted)
 
         let username = AuthenticationService.getLoggedInUserName()
 
@@ -141,7 +141,7 @@ const ReservationList = (props) =>{
                     "email" : username,
                     "partySize" : reservationInfo['partySize'],
                     //need update
-                    "date" : dateFormatted
+                    "date" : converDateToString(date)
                 }
             })
             .then((response) => {

@@ -137,6 +137,7 @@ const JoinQueue = (props) => {
         });
     }
     return(
+        <div className = "queueBackgroud">
         <div className = 'SignIn'>
             <p>JOIN QUEUE</p>
             <form>
@@ -180,6 +181,7 @@ const JoinQueue = (props) => {
                 </div>
             </form>
          
+        </div>
         </div>
         
     )

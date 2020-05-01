@@ -3,6 +3,7 @@ import Input from '../../UI/Input/Input'
 import Axios from 'axios'
 import {Link} from 'react-router-dom'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
+import './ReservationForm.css'
 
 
 
@@ -111,7 +112,18 @@ const ReservationForm = (props) => {
     }
     return(
         <div className = 'SignIn'>
-            <p>Reservation Form</p>
+            <p style={{ textAlign: "center" }}>
+                <span
+                    style={{
+                        display: "inline-block",
+                        padding: "5px",
+                        border: "1px solid black",
+                        textTransform: "uppercase",
+                    }}
+                >
+                    Reservation Form
+                </span>
+      </p>
             <form>
                 {formElementsArr.map(formElement => (
                     <Input
@@ -122,8 +134,14 @@ const ReservationForm = (props) => {
                         changed = {event => inputChangedHandler(event,formElement.id)}
                         />
                 ))}
-                <div>
-                    <Button color="success" onClick={submitHandler}>Submit</Button>
+                <div style={{ textAlign: "center" }}>
+                    <Button 
+                        style={{
+                            color: "white",
+                            background: "black",
+                            borderRadius: "0",
+                        }}
+                        onClick={submitHandler}>Submit</Button>
                     <Modal isOpen={modal} toggle={toggle} className={className}>
                         <ModalHeader toggle={toggle}>Reservation</ModalHeader>
                         <ModalBody>

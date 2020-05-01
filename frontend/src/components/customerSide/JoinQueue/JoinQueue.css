@@ -13,3 +13,18 @@
         width: 500px;
     }
 }
+
+
+.queueBackgroud{
+    background-image: url("../../../images/queue1.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-size: auto;
+
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    background-position: bottom;
+
+  }

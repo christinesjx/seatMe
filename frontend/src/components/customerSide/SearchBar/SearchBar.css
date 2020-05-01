@@ -9,3 +9,15 @@
     color:wheat;
 }
 
+
+
+.searchBar{
+    background-image: url("../../../images/search1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    text-align: center;
+  }

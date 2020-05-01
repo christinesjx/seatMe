@@ -112,3 +112,16 @@
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+
+
+/* 
+.welcome{
+  background-image: url("../../images/RestaurantBG5.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  text-align: center;
+} */

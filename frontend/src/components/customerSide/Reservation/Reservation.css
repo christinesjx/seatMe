@@ -1,24 +1,66 @@
-.Dropdown {
+.welcome {
+    margin: 0;
+    height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image: url('../../../images/RestaurantBG5.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
+  
+
+
+
+  .Dropdown {
     box-shadow: 0 2px 3px #ccc;
-    border: 1px solid #eee;
+    border: 1px solid black;
     box-sizing: border-box;
     width: 100px;
     color: #4c8d8f;
-}
-
-.DropdownEntry {
+  }
+  
+  .dropdown button {
+    color: white;
+    background: black;
+    border-radius: 0;
+  }
+  
+  .DropdownEntry {
     box-shadow: 0 2px 3px #ccc;
     border: 1px solid #eee;
     box-sizing: border-box;
-    width: 50px
-}
-
-.Reservation {
+    width: 50px;
+  }
+  
+  .Reservation {
+    
     margin: 20px auto;
     width: 80%;
     text-align: center;
-    box-shadow: 0 2px 3px #ccc;
-    border: 1px solid #eee;
+    box-shadow: 0 2px 3px rgb(61, 92, 92);
+    border: 1px solid rgb(255, 255, 255);
+    max-width: 50%;
     padding: 10px;
     box-sizing: border-box;
-}
+  }
+
+
+
+  .reservationBackgroud{
+    background-image: url("../../../images/food1.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    text-align: center;
+  }

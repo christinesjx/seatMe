@@ -95,10 +95,10 @@ const SearchBar = (props) =>{
     const jumbotronButton = <Link className = 'Linktag' to = '/Customer/Options'>More Options</Link>
     
     return(
-        <div>
+        <div className = "searchBar">
             <div>
                 <div>
-                    <Jumbotron>
+                    <div>
                         <h1 className="display-3">SeatMe</h1>
                         <p className="lead">Begin Your Search Below</p>
                         <hr className="my-2" />
@@ -111,7 +111,7 @@ const SearchBar = (props) =>{
                             <Button color="primary" 
                                 onClick = {searchButtonHandler}>Search</Button>
                         </p>
-                    </Jumbotron>
+                    </div>
                 </div>
             <div>
                 <Modal isOpen={modal} toggle={toggle} className={className}>

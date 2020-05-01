@@ -12,7 +12,7 @@ const RestaurantRegistrationComponent = (props) => {
     const [closeTime, setCloseTime] = useState('');
     
  
-    
+
     const[restaurantInfo, setRestaurantInfo] = useState({
         name: '',
         zipCode : '',
@@ -96,7 +96,6 @@ const RestaurantRegistrationComponent = (props) => {
             <form onSubmit={handleSubmit}>
 
                 
-    
                 <h2>Restaurant Info</h2>
                 <div className="form-group">
                     <label>Restaurant name</label>

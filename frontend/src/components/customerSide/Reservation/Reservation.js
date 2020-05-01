@@ -106,8 +106,10 @@ const Reservation = (props) => {
     
 
     return(
-        <div>
+        <div className = "reservationBackgroud">
+        
             <form  className = "Reservation">
+                <p>Please Make Your Reservation</p>
                 <DatePicker
                     selected = {startDate}
                     dateFormat="MM/dd/yyyy"
@@ -120,9 +122,17 @@ const Reservation = (props) => {
                     placeholder = 'Party Size' 
                     onChange = {inputChangedHandler}></input>
                 <p></p>
-                <Button color = 'info' 
+                <Button
+                    style={{
+                        color: "white",
+                        background: "black",
+                        borderRadius: "0",
+                    }}
                     outline
-                    onClick = {getTimeSlotHandler}>Get Time Slot</Button>
+                    onClick={getTimeSlotHandler}
+                    >
+                    Get Time Slot
+                </Button>
                 <p></p>
                 <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                     <DropdownToggle caret>

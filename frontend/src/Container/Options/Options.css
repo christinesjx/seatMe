@@ -1,0 +1,67 @@
+.container_reservation{
+    position: relative;
+    text-align: center;
+    display: inline-flex;
+    top: 300px;
+  }
+  
+  .ReservationTitle{
+    background-image: url("../../images/SeatMe.png");
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 50%;
+    height: 50px;
+    max-width: 100%;
+    background-size: contain;
+    display: inline-block;
+    left: 44%;
+    top: 100px;
+  }
+  
+  /* .options{
+    background-image: url("../../images/RestaurantBG5.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    text-align: center;
+  }
+   */
+  .Button {
+    display: inline-flex;
+    height: 40px;
+    width: 150px;
+    border: 2px solid rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: .8em;
+    letter-spacing: 1.5px;
+    align-items: center;
+    text-align: center; 
+    margin: auto 20px;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .Button:hover {
+      background:linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
+      background-color:#ccc2a6;
+  }
+  .Button:active {
+      position:relative;
+      top:1px;
+  }
+
+
+  .optionBackgroud{
+    background-image: url("../../images/table1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    text-align: center;
+  }

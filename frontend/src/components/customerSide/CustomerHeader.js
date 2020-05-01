@@ -5,7 +5,7 @@ const CustomerHeader = () => {
     return(
         <header>
             <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-              <div><a href="" className="navbar-brand"> Test </a></div>
+              <div><a href="" className="navbar-brand"> SeatMe </a></div>
               <ul className="navbar-nav">
                   <li><Link className="nav-link" to="/">Home</Link></li>
 
