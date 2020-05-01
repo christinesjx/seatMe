@@ -4,10 +4,7 @@ import com.example.seatMe.exception.NotFoundException;
 import com.example.seatMe.model.CustomerQueue;
 import com.example.seatMe.model.Restaurant;
 import com.example.seatMe.model.Table;
-import com.example.seatMe.persistence.dto.CustomerDTO;
-import com.example.seatMe.persistence.dto.ReservationDTO;
-import com.example.seatMe.persistence.dto.RestaurantDTO;
-import com.example.seatMe.persistence.dto.TableDTO;
+import com.example.seatMe.persistence.dto.*;
 import com.example.seatMe.service.CustomerQueueService;
 import com.example.seatMe.service.ReservationService;
 import com.example.seatMe.service.RestaurantService;
@@ -88,7 +85,7 @@ public class RestaurantController {
 
     @ResponseBody
     @GetMapping("/{email}/queue")
-    public List<CustomerQueue> getQueue(@PathVariable String email) throws NotFoundException {
+    public List<CustomerQueueDTO> getQueue(@PathVariable String email) throws NotFoundException {
         Restaurant restaurant = restaurantService.getRestaurants(email);
         return customerQueueService.getQueue(restaurant.getId());
     }

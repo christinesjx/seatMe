@@ -167,9 +167,8 @@ public class ReservationServiceImpl implements ReservationService {
             reservationDTO.setFirstName(r.getFirstName());
             reservationDTO.setLastName(r.getLastName());
             reservationDTO.setPhone(r.getPhone());
-
             reservationDTO.setPartySize(r.getPartySize());
-            reservationDTO.setDate(r.getDate().toString());
+            reservationDTO.setDate(DateUtil.getDateWithoutTime(r.getDate()));
             reservationDTO.setTime(r.getTimeWindows().getStartTime().toString());
             reservationDTOS.add(reservationDTO);
         }

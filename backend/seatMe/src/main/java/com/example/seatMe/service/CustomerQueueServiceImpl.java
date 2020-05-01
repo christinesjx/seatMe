@@ -8,9 +8,12 @@ import com.example.seatMe.persistence.ReservationRepository;
 import com.example.seatMe.persistence.RestaurantRepository;
 import com.example.seatMe.persistence.TableRepository;
 import com.example.seatMe.persistence.dto.CustomerDTO;
+import com.example.seatMe.persistence.dto.CustomerQueueDTO;
+import com.example.seatMe.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,8 +55,25 @@ public class CustomerQueueServiceImpl implements CustomerQueueService{
     }
 
     @Override
-    public List<CustomerQueue> getQueue(long restaurantId) {
-        return customerQueueRepo.findAllByRestaurantIdOrderByTimestamp(restaurantId);
+    public List<CustomerQueueDTO> getQueue(long restaurantId) {
+        List<CustomerQueue> customerQueueList =  customerQueueRepo.findAllByRestaurantIdOrderByTimestamp(restaurantId);
+
+        List<CustomerQueueDTO> customerQueueDTOS = new ArrayList<>();
+        for(CustomerQueue c: customerQueueList){
+            CustomerQueueDTO customerQueueDTO = new CustomerQueueDTO();
+            String time = DateUtil.getTimeFromTimestamp(c.getTimestamp());
+
+            customerQueueDTO.setId(c.getId().toString());
+            customerQueueDTO.setFirstName(c.getFirstName());
+            customerQueueDTO.setLastName(c.getFirstName());
+            customerQueueDTO.setPartySize(c.getPartySize());
+            customerQueueDTO.setPhone(c.getPhone());
+            customerQueueDTO.setTimestamp(time);
+
+            customerQueueDTOS.add(customerQueueDTO);
+        }
+
+        return customerQueueDTOS;
     }
 
 
