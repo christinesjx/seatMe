@@ -11,7 +11,7 @@ SeatMe is a light-weighted, web-based restaurant reservation service. Restaurant
 
 1. Setup backend
 
-  * Install PostgreSQL with Homebrew. 
+⋅⋅⋅Install PostgreSQL with Homebrew. 
 
 2. Setup frontend
 
@@ -20,13 +20,12 @@ SeatMe is a light-weighted, web-based restaurant reservation service. Restaurant
 3. Clone this repo to your local directory.
 
 Backend: 
-Import the Java Spring Boot project in the backend folder with IDEA.
-Start PostgreSQL with Homebrew: ``` brew services start postgresql ```
-Run the Spring Boot project
+* Import the Java Spring Boot project in the backend folder with IDEA.
+* Start PostgreSQL with Homebrew: ``` brew services start postgresql ```
+* Run the Spring Boot project
 
 Frontend:
-Open the react project in the frontend folder. 
-Go to the directory
+* Open the react project in the frontend folder. 
 * Install dependecies: ``` npm install ```
 * Start the React app: ``` npm start ```
 
@@ -43,7 +42,7 @@ Go to the directory
 
 ## Sequence Diagram
 
-![alt text](sequenceDiagram.png "Title")
+![alt text](squenceDigram.png "Title")
 
 
 
