@@ -1,11 +1,15 @@
 # SeatMe
 
-## Tutorials: 
-[ReactJS + Spring Boot](https://developer.okta.com/blog/2018/07/19/simple-crud-react-and-spring-boot#add-a-jpa-domain-model)
+SeatMe is a light-weighted, web-based restaurant reservation service. Restaurant owners can register and manage restaurants through our website, and customers can search and reserve for restaurant seats. 
 
-[ReactJS + Spring Boot](https://spring.io/guides/tutorials/react-and-spring-data-rest)
+## Demo
 
-[JWT token](https://jwt.io/)
+
+
+## Data Model
+
+![alt text](datamodel.png "Title")
+
 
 ## RESTful apis
 
