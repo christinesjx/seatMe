@@ -2,6 +2,35 @@
 
 SeatMe is a light-weighted, web-based restaurant reservation service. Restaurant owners can register and manage restaurants through our website, and customers can search and reserve for restaurant seats. 
 
+### Use Case
+
+![alt text](usecase.png "Title")
+
+
+## Getting Started
+
+1. Setup backend
+
+  * Install PostgreSQL with Homebrew. 
+
+2. Setup frontend
+
+  * Install Node.js with version v12.13.0
+
+3. Clone this repo to your local directory.
+
+Backend: 
+Import the Java Spring Boot project in the backend folder with IDEA.
+Start PostgreSQL with Homebrew: ``` brew services start postgresql ```
+Run the Spring Boot project
+
+Frontend:
+Open the react project in the frontend folder. 
+Go to the directory
+* Install dependecies: ``` npm install ```
+* Start the React app: ``` npm start ```
+
+
 ## Demo
 
 
@@ -11,9 +40,16 @@ SeatMe is a light-weighted, web-based restaurant reservation service. Restaurant
 ![alt text](datamodel.png "Title")
 
 
+
+## Sequence Diagram
+
+![alt text](sequenceDiagram.png "Title")
+
+
+
 ## RESTful apis
 
-This project will be developed based on the following apis: 
+This project was developed based on the following apis: 
 
 ### Enterprise side: 
 
